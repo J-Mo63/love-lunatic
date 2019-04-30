@@ -1,5 +1,9 @@
 -- This file is for playing around with the language
 
+-- function love.draw()
+--     love.graphics.print("Hello World", 300, 300)
+-- end
+
 print("hello, world")
 
 function display_table(table_var)
