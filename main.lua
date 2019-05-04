@@ -1,14 +1,34 @@
 -- This file is for playing around with the language
 
-function love.draw()
-    love.graphics.print("Hello World", 300, 300)
-end
+local text = {
+   x  = 100,
+   y  = 100,
+   speed = 200,
+}
 
 function love.update(dt)
     -- Make the application quit on command + w
     if love.keyboard.isDown("lgui") and love.keyboard.isDown("w") then
         love.event.quit()
     end
+
+    if love.keyboard.isDown("right") then
+      text.x = text.x + (text.speed * dt)
+   end
+   if love.keyboard.isDown("left") then
+      text.x = text.x - (text.speed * dt)
+   end
+ 
+   if love.keyboard.isDown("down") then
+      text.y = text.y + (text.speed * dt)
+   end
+   if love.keyboard.isDown("up") then
+      text.y = text.y - (text.speed * dt)
+   end
+end
+
+function love.draw()
+    love.graphics.print("Hello World", text.x, text.y, 50)
 end
 
 print("hello, world")
