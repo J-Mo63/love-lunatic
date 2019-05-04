@@ -1,8 +1,15 @@
 -- This file is for playing around with the language
 
--- function love.draw()
---     love.graphics.print("Hello World", 300, 300)
--- end
+function love.draw()
+    love.graphics.print("Hello World", 300, 300)
+end
+
+function love.update(dt)
+    -- Make the application quit on command + w
+    if love.keyboard.isDown("lgui") and love.keyboard.isDown("w") then
+        love.event.quit()
+    end
+end
 
 print("hello, world")
 
