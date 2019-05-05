@@ -15,6 +15,9 @@ function love.load()
   tiles.grass = love.graphics.newImage("grass.jpg")
   tileWidth = tiles.grass:getWidth()
   height = love.graphics.getHeight()
+  width = love.graphics.getWidth()
+
+  letterboxing = (width-height)/2
 
   scaleVal = height/tileWidth
 
@@ -47,7 +50,7 @@ function draw_map()
 
   y_val = 0
   for i, row in ipairs(game_map) do
-    x_val = 0
+    x_val = letterboxing
     for i, tile in ipairs(row) do
       love.graphics.draw(tile, x_val, y_val, 0, scaleVal/4)
       x_val = x_val + tileHeight
