@@ -17,6 +17,13 @@ function love.load()
   height = love.graphics.getHeight()
 
   scaleVal = height/tileWidth
+
+  centre_x = love.graphics.getWidth()/2
+  centre_y = love.graphics.getHeight()/2
+
+  player.location.x = centre_x
+  player.location.y = centre_y
+
   game_map = {
     {tiles.grass, tiles.grass, tiles.grass, tiles.grass},
     {tiles.grass, tiles.grass, tiles.grass, tiles.grass},

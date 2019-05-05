@@ -2,8 +2,8 @@
 local M = {}
 
 M.location = {
-  x  = 100,
-  y  = 100,
+  x = 100,
+  y = 100,
 }
 
 local player_speed = 4
