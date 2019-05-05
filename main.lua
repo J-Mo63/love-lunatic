@@ -17,6 +17,12 @@ function love.load()
   height = love.graphics.getHeight()
 
   scaleVal = height/tileWidth
+  game_map = {
+    {tiles.grass, tiles.grass, tiles.grass, tiles.grass},
+    {tiles.grass, tiles.grass, tiles.grass, tiles.grass},
+    {tiles.grass, tiles.grass, tiles.grass, tiles.grass},
+    {tiles.grass, tiles.grass, tiles.grass, tiles.grass},
+  }
 end
 
 function love.update(dt)
@@ -31,15 +37,16 @@ end
 
 function draw_map()
   tileHeight = tileWidth*scaleVal/4
-  love.graphics.draw(tiles.grass, 0, 0, 0, scaleVal/4)
-  love.graphics.draw(tiles.grass, 0, tileHeight, 0, scaleVal/4)
-  love.graphics.draw(tiles.grass, 0, tileHeight*2, 0, scaleVal/4)
-  love.graphics.draw(tiles.grass, 0, tileHeight*3, 0, scaleVal/4)
 
-  love.graphics.draw(tiles.grass, tileHeight, 0, 0, scaleVal/4)
-  love.graphics.draw(tiles.grass, tileHeight, tileHeight, 0, scaleVal/4)
-  love.graphics.draw(tiles.grass, tileHeight, tileHeight*2, 0, scaleVal/4)
-  love.graphics.draw(tiles.grass, tileHeight, tileHeight*3, 0, scaleVal/4)
+  y_val = 0
+  for i, row in ipairs(game_map) do
+    x_val = 0
+    for i, tile in ipairs(row) do
+      love.graphics.draw(tile, x_val, y_val, 0, scaleVal/4)
+      x_val = x_val + tileHeight
+    end
+    y_val = y_val + tileHeight
+  end
 end
 
 
