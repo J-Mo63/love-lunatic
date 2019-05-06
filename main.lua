@@ -1,19 +1,22 @@
--- Import the required system modules
-local system = require("system")
-local player = require("player")
-local map = require("map")
+-- Import the required modules
+local system = require("scripts/system")
+local player = require("scripts/player")
+local map = require("scripts/map")
 
 function love.load()
+  -- Initialise modules for use
   player.init()
   map.init()
 end
 
 function love.update(dt)
+  -- Register game updates
   system.update()
   player.update_movement(dt)
 end
 
 function love.draw()
+  -- Render game components on the screen
   map.render()
-  love.graphics.print("-_-", player.location.x, player.location.y, 0)
+  player.render()
 end
