@@ -26,18 +26,24 @@ end
 
 -- Initialises the map module for use
 function M.init()
+  -- Load the tiles
   load_tiles()
 
-  tileHeight = tiles.grass.centre:getWidth()
+  -- Get the height of the imported tileset
+  tilesetHeight = tiles.grass.centre:getWidth()
   
+  -- Get the screen dimensions
   screenWidth = love.graphics.getWidth()
   screenHeight = love.graphics.getHeight()
-  
+
+  -- Get the tile-scaling variables
+  tileScale = screenHeight/tilesetHeight
+  scaledTileHeight = tilesetHeight*tileScale/tileDesity
+
+  -- Calculate the letterboxing offset
   letterboxing = (screenWidth-screenHeight)/2
 
-  scaleVal = screenHeight/tileHeight
-  tileScale = tileHeight*scaleVal/tileDesity
-
+  -- Load the game map
   game_map = {
     {tiles.grass.topLeft, tiles.grass.top, tiles.grass.top, tiles.grass.top},
     {tiles.grass.left, tiles.grass.centre, tiles.grass.centre, tiles.grass.centre},
@@ -50,10 +56,10 @@ function M.render()
   for i, row in pairs(game_map) do
     x_val = letterboxing
     for i, tile in pairs(row) do
-      love.graphics.draw(tile, x_val, y_val, 0, scaleVal/tileDesity)
-      x_val = x_val + tileScale
+      love.graphics.draw(tile, x_val, y_val, 0, tileScale/tileDesity)
+      x_val = x_val + scaledTileHeight
     end
-    y_val = y_val + tileScale
+    y_val = y_val + scaledTileHeight
   end
 end
  
