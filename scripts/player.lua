@@ -2,7 +2,7 @@
 local M = {}
 
 -- Module fields
-local player_speed = 4
+local PLAYER_SPEED = 4
 
 -- The player location
 M.location = {
@@ -20,8 +20,8 @@ end
 -- Updates the player and input state
 function M.update_movement(dt)
   -- Get movement profiles for input
-  temp_x = 0
-  temp_y = 0
+  local temp_x = 0
+  local temp_y = 0
   if love.keyboard.isDown("right") then
     temp_x = (dt * 100)
   end
@@ -36,10 +36,10 @@ function M.update_movement(dt)
   end
 
   -- Normalise movement
-  magnitude = math.sqrt(temp_x^2 + temp_y^2)
+  local magnitude = math.sqrt(temp_x^2 + temp_y^2)
   if magnitude > 1 then
-    M.location.x = M.location.x + (temp_x / magnitude) * player_speed
-    M.location.y = M.location.y + (temp_y / magnitude) * player_speed
+    M.location.x = M.location.x + (temp_x / magnitude) * PLAYER_SPEED
+    M.location.y = M.location.y + (temp_y / magnitude) * PLAYER_SPEED
   end
 end
 

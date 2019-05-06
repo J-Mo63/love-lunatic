@@ -2,9 +2,10 @@
 local M = {}
 
 -- Module fields
-local tileDesity = 16
-local tileHeight = nil
-local tileScale = nil
+local TILE_DENSITY = 16
+local tile_scale = nil
+local scaled_tile_height = nil
+local letterboxing = nil
 
 -- A list of tiles used in the game
 local tiles = {
@@ -32,18 +33,18 @@ function M.init()
   load_tiles()
 
   -- Get the height of the imported tileset
-  tilesetHeight = tiles.grass.centre:getWidth()
+  local tileset_height = tiles.grass.centre:getWidth()
   
   -- Get the screen dimensions
-  screenWidth = love.graphics.getWidth()
-  screenHeight = love.graphics.getHeight()
+  local screen_width = love.graphics.getWidth()
+  local screen_height = love.graphics.getHeight()
 
   -- Get the tile-scaling variables
-  tileScale = screenHeight/tilesetHeight
-  scaledTileHeight = tilesetHeight*tileScale/tileDesity
+  tile_scale = screen_height/tileset_height
+  scaled_tile_height = tileset_height*tile_scale/TILE_DENSITY
 
   -- Calculate the letterboxing offset
-  letterboxing = (screenWidth-screenHeight)/2
+  letterboxing = (screen_width-screen_height)/2
 
   -- Load the game map
   game_map = {
@@ -54,20 +55,20 @@ end
 
 -- Renders the game map to the screen using tiles
 function M.render()
-  y_val = 0
-  for i=1, tileDesity do
-    x_val = letterboxing
-    for j=1, tileDesity do
+  local y_loc = 0
+  for i=1, TILE_DENSITY do
+    local x_loc = letterboxing
+    for j=1, TILE_DENSITY do
       -- Check if the tile exists in the map
       tile = tiles.system.placeholder
-      if game_map[i] ~= nil and game_map[i][j] ~= nil then
+      if game_map[i] and game_map[i][j] then
         tile = game_map[i][j]
       end
       -- Render it to the screen
-      love.graphics.draw(tile, x_val, y_val, 0, tileScale/tileDesity)
-      x_val = x_val + scaledTileHeight
+      love.graphics.draw(tile, x_loc, y_loc, 0, tile_scale/TILE_DENSITY)
+      x_loc = x_loc + scaled_tile_height
     end
-    y_val = y_val + scaledTileHeight
+    y_loc = y_loc + scaled_tile_height
   end
 end
  
