@@ -8,6 +8,7 @@ local tileScale = nil
 
 -- A list of tiles used in the game
 local tiles = {
+  system = {},
   grass = {},
 }
 
@@ -16,6 +17,7 @@ local game_map = nil
 
 -- Registers all tile types to the tiles table
 local function load_tiles()
+  tiles.system.placeholder = love.graphics.newImage("/assets/tiles/placeholder.png")
   tiles.grass.centre = love.graphics.newImage("/assets/tiles/grass-centre.png")
   tiles.grass.bottom = love.graphics.newImage("/assets/tiles/grass-bottom.png")
   tiles.grass.top = love.graphics.newImage("/assets/tiles/grass-top.png")
@@ -52,6 +54,16 @@ end
 
 -- Renders the game map to the screen using tiles
 function M.render()
+  y_val = 0
+  for i=1, tileDesity do
+    x_val = letterboxing
+    for j=1, tileDesity do
+      love.graphics.draw(tiles.system.placeholder, x_val, y_val, 0, tileScale/tileDesity)
+      x_val = x_val + scaledTileHeight
+    end
+    y_val = y_val + scaledTileHeight
+  end
+
   y_val = 0
   for i, row in pairs(game_map) do
     x_val = letterboxing
