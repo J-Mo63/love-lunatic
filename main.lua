@@ -19,4 +19,5 @@ function love.draw()
   -- Render game components on the screen
   map.render()
   player.render()
+  system.render()
 end
