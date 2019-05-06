@@ -3,7 +3,12 @@ local system = require("system")
 local player = require("player")
 
 local tiles = {
-  grass = nil
+  grassCentre = nil,
+  grassBottom = nil,
+  grassTop = nil,
+  grassRight = nil,
+  grassLeft = nil,
+  grassTopLeft = nil,
 }
 
 local height = nil
@@ -12,8 +17,13 @@ local tileWidth = nil
 local scaleVal = nil
 
 function love.load()
-  tiles.grass = love.graphics.newImage("grass.jpg")
-  tileWidth = tiles.grass:getWidth()
+  tiles.grassCentre = love.graphics.newImage("/assets/tiles/grass-centre.png")
+  tiles.grassBottom = love.graphics.newImage("/assets/tiles/grass-bottom.png")
+  tiles.grassTop = love.graphics.newImage("/assets/tiles/grass-top.png")
+  tiles.grassLeft = love.graphics.newImage("/assets/tiles/grass-left.png")
+  tiles.grassRight = love.graphics.newImage("/assets/tiles/grass-right.png")
+  tiles.grassTopLeft = love.graphics.newImage("/assets/tiles/grass-top-left.png")
+  tileWidth = tiles.grassCentre:getWidth()
   height = love.graphics.getHeight()
   width = love.graphics.getWidth()
 
@@ -28,10 +38,8 @@ function love.load()
   player.location.y = centre_y
 
   game_map = {
-    {tiles.grass, tiles.grass, tiles.grass, tiles.grass},
-    {tiles.grass, tiles.grass, tiles.grass, tiles.grass},
-    {tiles.grass, tiles.grass, tiles.grass, tiles.grass},
-    {tiles.grass, tiles.grass, tiles.grass, tiles.grass},
+    {tiles.grassTopLeft, tiles.grassTop, tiles.grassTop, tiles.grassTop},
+    {tiles.grassLeft, tiles.grassCentre, tiles.grassCentre, tiles.grassCentre},
   }
 end
 
