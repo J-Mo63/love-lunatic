@@ -11,6 +11,8 @@ local tiles = {
   grassTopLeft = nil,
 }
 
+local tileDesity = 16
+
 local height = nil
 local tileWidth = nil
 
@@ -54,13 +56,13 @@ function love.draw()
 end
 
 function draw_map()
-  tileHeight = tileWidth*scaleVal/4
+  tileHeight = tileWidth*scaleVal/tileDesity
 
   y_val = 0
   for i, row in ipairs(game_map) do
     x_val = letterboxing
     for i, tile in ipairs(row) do
-      love.graphics.draw(tile, x_val, y_val, 0, scaleVal/4)
+      love.graphics.draw(tile, x_val, y_val, 0, scaleVal/tileDesity)
       x_val = x_val + tileHeight
     end
     y_val = y_val + tileHeight
