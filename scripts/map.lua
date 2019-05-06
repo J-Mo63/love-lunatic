@@ -1,18 +1,21 @@
--- A module for player and player controller related methods and variables
+-- A module for map related methods and variables
 local M = {}
 
+-- Module fields
 local tileDesity = 16
 local tileHeight = nil
 local tileScale = nil
 
+-- A list of tiles used in the game
 local tiles = {
   grass = {},
 }
 
+-- The ingame map to be displayed
 local game_map = nil
 
+-- Registers all tile types to the tiles table
 local function load_tiles()
-  -- Register all tile types to the tiles table
   tiles.grass.centre = love.graphics.newImage("/assets/tiles/grass-centre.png")
   tiles.grass.bottom = love.graphics.newImage("/assets/tiles/grass-bottom.png")
   tiles.grass.top = love.graphics.newImage("/assets/tiles/grass-top.png")
@@ -21,6 +24,7 @@ local function load_tiles()
   tiles.grass.topLeft = love.graphics.newImage("/assets/tiles/grass-top-left.png")
 end
 
+-- Initialises the map module for use
 function M.init()
   load_tiles()
 
@@ -29,7 +33,6 @@ function M.init()
   screenWidth = love.graphics.getWidth()
   screenHeight = love.graphics.getHeight()
   
-
   letterboxing = (screenWidth-screenHeight)/2
 
   scaleVal = screenHeight/tileHeight
@@ -41,11 +44,12 @@ function M.init()
   }
 end
 
+-- Renders the game map to the screen using tiles
 function M.render()
   y_val = 0
-  for i, row in ipairs(game_map) do
+  for i, row in pairs(game_map) do
     x_val = letterboxing
-    for i, tile in ipairs(row) do
+    for i, tile in pairs(row) do
       love.graphics.draw(tile, x_val, y_val, 0, scaleVal/tileDesity)
       x_val = x_val + tileScale
     end
