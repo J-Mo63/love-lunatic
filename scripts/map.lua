@@ -58,16 +58,12 @@ function M.render()
   for i=1, tileDesity do
     x_val = letterboxing
     for j=1, tileDesity do
-      love.graphics.draw(tiles.system.placeholder, x_val, y_val, 0, tileScale/tileDesity)
-      x_val = x_val + scaledTileHeight
-    end
-    y_val = y_val + scaledTileHeight
-  end
-
-  y_val = 0
-  for i, row in pairs(game_map) do
-    x_val = letterboxing
-    for i, tile in pairs(row) do
+      -- Check if the tile exists in the map
+      tile = tiles.system.placeholder
+      if game_map[i] ~= nil and game_map[i][j] ~= nil then
+        tile = game_map[i][j]
+      end
+      -- Render it to the screen
       love.graphics.draw(tile, x_val, y_val, 0, tileScale/tileDesity)
       x_val = x_val + scaledTileHeight
     end
