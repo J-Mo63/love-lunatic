@@ -1,12 +1,17 @@
 -- A module for player and player controller related methods and variables
 local M = {}
 
+local player_speed = 4
+
 M.location = {
   x = 100,
   y = 100,
 }
 
-local player_speed = 4
+function M.init()
+  M.location.x = love.graphics.getWidth()/2
+  M.location.y = love.graphics.getHeight()/2
+end
 
 function M.update_movement(dt)
   -- Get movement profiles for input
