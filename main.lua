@@ -1,7 +1,7 @@
 -- Import the required modules
-local system = require("scripts/system")
-local player = require("scripts/player")
-local map = require("scripts/map")
+local system = require("scripts.system")
+local player = require("scripts.player")
+local map = require("scripts.map")
 
 function love.load()
   -- Initialise modules for use
