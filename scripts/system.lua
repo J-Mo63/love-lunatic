@@ -12,7 +12,7 @@ function M.update(dt)
 end
 
 function M.render()
-  love.graphics.print(to_console, 0, 0)
+  love.graphics.print(to_console, 5, 2)
 end
  
 return M

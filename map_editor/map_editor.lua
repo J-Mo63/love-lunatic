@@ -37,7 +37,8 @@ function M.render()
   local count = 0
   for i, tile_type in pairs(M.tiles) do
     for j, tile in pairs(tile_type) do
-      love.graphics.draw(tile, x_loc, y_loc, 0, M.map_config.tile_scale / M.map_config.TILE_DENSITY / MENU_SCALE)
+      love.graphics.draw(tile, x_loc, y_loc, 0, 
+        M.map_config.tile_scale / M.map_config.TILE_DENSITY / MENU_SCALE)
       y_loc = y_loc + M.map_config.scaled_tile_height / MENU_SCALE
       count = count + 1
       if (count == 22) then
