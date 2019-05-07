@@ -45,7 +45,7 @@ end
 
 -- Renders the player sprite to the screen
 function M.render()
-  love.graphics.print("-_-", M.location.x, M.location.y, 0)
+  love.graphics.print("-_-", M.location.x, M.location.y)
 end
  
 return M
