@@ -2,6 +2,9 @@
 local M = {}
 
 -- Module fields
+local MENU_SCALE = 1.5
+
+-- The currently selected tile
 M.selected_tile = nil
 
 -- Map configuration values
@@ -23,13 +26,26 @@ function M.update()
     local x_tile = math.floor(tonumber((x - M.map_config.letterboxing) / M.map_config.scaled_tile_height)) + 1
     local y_tile = math.floor(tonumber(y / M.map_config.scaled_tile_height)) + 1
     -- Update the selected tile with a sprite
-    M.game_map[y_tile][x_tile] = M.tiles.grass.centre
+    M.game_map[y_tile][x_tile] = M.selected_tile
   end
 end
 
 -- Renders the editor menu to the screen
 function M.render()
-  to_console = "test"
+  local y_loc = 20
+  local x_loc = 10
+  local count = 0
+  for i, tile_type in pairs(M.tiles) do
+    for j, tile in pairs(tile_type) do
+      love.graphics.draw(tile, x_loc, y_loc, 0, M.map_config.tile_scale / M.map_config.TILE_DENSITY / MENU_SCALE)
+      y_loc = y_loc + M.map_config.scaled_tile_height / MENU_SCALE
+      count = count + 1
+      if (count == 22) then
+        y_loc = 20
+        x_loc = x_loc + M.map_config.scaled_tile_height / MENU_SCALE
+      end
+    end
+  end
 end
  
 return M
