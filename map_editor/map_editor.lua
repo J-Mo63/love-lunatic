@@ -36,6 +36,8 @@ function M.render()
   local x_loc = 10
   local count = 0
   for i, tile_type in pairs(M.tiles) do
+    -- Hide all system tiles
+    if i == "system" then return end
     for j, tile in pairs(tile_type) do
       love.graphics.draw(tile, x_loc, y_loc, 0, 
         M.map_config.tile_scale / M.map_config.TILE_DENSITY / MENU_SCALE)
