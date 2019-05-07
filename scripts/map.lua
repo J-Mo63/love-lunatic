@@ -19,13 +19,13 @@ local game_map = {}
 
 -- Registers all tile types to the tiles table
 local function load_tiles()
-  tiles.system.placeholder = love.graphics.newImage("/assets/tiles/placeholder.png")
-  tiles.grass.centre = love.graphics.newImage("/assets/tiles/grass-centre.png")
-  tiles.grass.bottom = love.graphics.newImage("/assets/tiles/grass-bottom.png")
-  tiles.grass.top = love.graphics.newImage("/assets/tiles/grass-top.png")
-  tiles.grass.left = love.graphics.newImage("/assets/tiles/grass-left.png")
-  tiles.grass.right = love.graphics.newImage("/assets/tiles/grass-right.png")
-  tiles.grass.topLeft = love.graphics.newImage("/assets/tiles/grass-top-left.png")
+  tiles.system.placeholder = love.graphics.newImage("assets/tiles/placeholder.png")
+  tiles.grass.centre = love.graphics.newImage("assets/tiles/grass-centre.png")
+  tiles.grass.bottom = love.graphics.newImage("assets/tiles/grass-bottom.png")
+  tiles.grass.top = love.graphics.newImage("assets/tiles/grass-top.png")
+  tiles.grass.left = love.graphics.newImage("assets/tiles/grass-left.png")
+  tiles.grass.right = love.graphics.newImage("assets/tiles/grass-right.png")
+  tiles.grass.topLeft = love.graphics.newImage("assets/tiles/grass-top-left.png")
 end
 
 local function generate_map()
