@@ -4,6 +4,8 @@ local player = require("scripts.player")
 local map = require("scripts.map")
 
 function love.load()
+  -- Set the window title
+  love.window.setTitle("Unknowable Adventure")
   -- Initialise modules for use
   player.init()
   map.init()
