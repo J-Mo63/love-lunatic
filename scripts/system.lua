@@ -1,7 +1,7 @@
 -- A module for system related methods and variables
 local M = {}
 
-to_console = "None"
+to_console = "Console ready"
 
 -- Checks for any system commands
 function M.update(dt)

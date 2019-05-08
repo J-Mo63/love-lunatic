@@ -38,6 +38,14 @@ end
 
 -- Renders the editor menu to the screen
 function M.render()
+  -- Calculate menu variables
+  local right_side = M.map_config.scaled_tile_height * M.map_config.TILE_DENSITY + M.map_config.letterboxing
+  local menu_tile_size = M.map_config.tile_scale / M.map_config.TILE_DENSITY / MENU_SCALE
+
+  -- Display tile selection
+  love.graphics.print("Selected:", right_side + 10, 10)
+  love.graphics.draw(selected_tile, right_side + 10, 30, 0, menu_tile_size)
+
   local y_loc = 20
   local x_loc = 10
   local count = 0
@@ -45,11 +53,13 @@ function M.render()
     -- Hide all system tiles
     if i == "system" then return end
     for j, tile in pairs(tile_type) do
-      love.graphics.draw(tile, x_loc, y_loc, 0, 
-        M.map_config.tile_scale / M.map_config.TILE_DENSITY / MENU_SCALE)
+      -- Draw the tile to the menu
+      love.graphics.draw(tile, x_loc, y_loc, 0, menu_tile_size)
+      -- Increment locational values
       y_loc = y_loc + M.map_config.scaled_tile_height / MENU_SCALE
       count = count + 1
       if (count == 22) then
+        -- Start a new column
         y_loc = 20
         x_loc = x_loc + M.map_config.scaled_tile_height / MENU_SCALE
       end
