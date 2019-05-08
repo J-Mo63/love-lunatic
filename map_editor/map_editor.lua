@@ -5,7 +5,7 @@ local M = {}
 local MENU_SCALE = 1.5
 
 -- The currently selected tile
-M.selected_tile = nil
+local selected_tile = nil
 
 -- Map configuration values
 M.map_config = nil
@@ -18,6 +18,12 @@ M.game_map = nil
 
 -- Updates the editor input state
 function M.update()
+
+
+  selected_tile = M.tiles.grass.centre
+
+
+
   -- Check if the mouse button is down
   if love.mouse.isDown(1) then
     -- Get the mouse position
@@ -26,7 +32,7 @@ function M.update()
     local x_tile = math.floor(tonumber((x - M.map_config.letterboxing) / M.map_config.scaled_tile_height)) + 1
     local y_tile = math.floor(tonumber(y / M.map_config.scaled_tile_height)) + 1
     -- Update the selected tile with a sprite
-    M.game_map[y_tile][x_tile] = M.selected_tile
+    M.game_map[y_tile][x_tile] = selected_tile
   end
 end
 

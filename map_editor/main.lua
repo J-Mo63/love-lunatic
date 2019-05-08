@@ -14,7 +14,6 @@ function love.load()
   map_editor.map_config = map.map_config
   map_editor.tiles = map.tiles
   map_editor.game_map = map.game_map
-  map_editor.selected_tile = map.tiles.grass.centre
 end
 
 function love.update(dt)
