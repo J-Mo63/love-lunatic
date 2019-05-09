@@ -51,6 +51,14 @@ local function load_tiles()
   M.tiles.grass.c1entre74 = love.graphics.newImage("assets/tiles/grass-centre.png")
   M.tiles.grass.c1entre58 = love.graphics.newImage("assets/tiles/grass-centre.png")
   M.tiles.grass.c1entre68 = love.graphics.newImage("assets/tiles/grass-centre.png")
+  M.tiles.grass.c1entre5 = love.graphics.newImage("assets/tiles/grass-centre.png")
+  M.tiles.grass.c1e3ntre6 = love.graphics.newImage("assets/tiles/grass-centre.png")
+  M.tiles.grass.c1entr3e15 = love.graphics.newImage("assets/tiles/grass-centre.png")
+  M.tiles.grass.c1e3ntre125 = love.graphics.newImage("assets/tiles/grass-centre.png")
+  M.tiles.grass.c1entre136 = love.graphics.newImage("assets/tiles/grass-centre.png")
+  M.tiles.grass.c1ent3re74 = love.graphics.newImage("assets/tiles/grass-centre.png")
+  M.tiles.grass.c1e3ntre58 = love.graphics.newImage("assets/tiles/grass-centre.png")
+  M.tiles.grass.c1en3tre68 = love.graphics.newImage("assets/tiles/grass-centre.png")
 end
 
 -- Generates an empty game map to start
