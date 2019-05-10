@@ -50,11 +50,13 @@ function M.update()
       -- Update the selected tile with a sprite
       M.game_map[y_tile][x_tile] = selected_tile
     else
-      -- -- Work out the x and y coordinates for the mouse in tiles
-      -- local x_tile = math.floor(tonumber(x / M.map_config.scaled_tile_height))
-      -- local y_tile = math.floor(tonumber(y / M.map_config.scaled_tile_height))
+      -- Work out the x and y coordinates for the mouse in tiles
+      local x_tile = math.floor(tonumber(x / menu_tile_height))
+      local y_tile = math.floor(tonumber(y / menu_tile_height))
       -- -- Update the selected tile with a sprite
       -- M.game_map[y_tile][x_tile] = selected_tile
+
+      to_console = x_tile .. ":" .. y_tile
     end
   end
 end
