@@ -59,8 +59,6 @@ function M.update()
       local tile_index = y_tile + (x_tile * menu_tile_row_max)
       local count = 1
       for i, tile_type in pairs(M.tiles) do
-        -- Disregard all system tiles
-        if i == "system" then return end
         for j, tile in pairs(tile_type) do
           -- Check if it is the index tile
           if count == tile_index then
@@ -85,8 +83,6 @@ function M.render()
   local y_loc = menu_y
   local count = 0
   for i, tile_type in pairs(M.tiles) do
-    -- Hide all system tiles
-    if i == "system" then return end
     for j, tile in pairs(tile_type) do
       -- Draw the tile to the menu
       love.graphics.draw(tile, x_loc, y_loc, 0, menu_tile_scale)
