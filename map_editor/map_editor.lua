@@ -7,6 +7,10 @@ local selected_tile = nil
 local menu_y = 0
 local menu_x = 0
 
+local menu_tile_scale = nil
+local right_side = nil
+local menu_tile_height = nil
+
 -- Map configuration values
 M.map_config = nil
 
@@ -16,14 +20,22 @@ M.tiles = nil
 -- The map to be edited
 M.game_map = nil
 
--- Updates the editor input state
-function M.update()
 
-
+function M.init()
+  -- Initialise currently selected tile
   selected_tile = M.tiles.grass.centre
 
+  -- Find the right side of the screen
+  right_side = (M.map_config.scaled_tile_height 
+    * M.map_config.TILE_DENSITY + M.map_config.letterboxing)
 
+  -- Calculate menu sizing variables
+  menu_tile_scale = M.map_config.tile_scale / M.map_config.TILE_DENSITY * MENU_SCALE
+  menu_tile_height = selected_tile:getHeight() * menu_tile_scale
+end
 
+-- Updates the editor input state
+function M.update()
   -- Check if the mouse button is down
   if love.mouse.isDown(1) then
     -- Get the mouse position
@@ -47,14 +59,9 @@ end
 
 -- Renders the editor menu to the screen
 function M.render()
-  -- Calculate menu variables
-  local menu_tile_scale = M.map_config.tile_scale / M.map_config.TILE_DENSITY * MENU_SCALE
-  local right_side = (M.map_config.scaled_tile_height 
-    * M.map_config.TILE_DENSITY + M.map_config.letterboxing)
-
   -- Display tile selection
   love.graphics.print("Selected:", right_side + 10, 10)
-  love.graphics.draw(selected_tile, right_side + 10, 30, 0, 1)
+  love.graphics.draw(selected_tile, right_side + 10, 30, 0, menu_tile_scale)
 
   local x_loc = menu_x
   local y_loc = menu_y

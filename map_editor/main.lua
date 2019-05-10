@@ -7,13 +7,16 @@ function love.load()
   -- Set the window title
   love.window.setTitle("Map Editor")
 
-  -- Initialise modules for use
+  -- Initialise map module for use
   map.init()
 
   -- Copy across required values from the maps module to the editor
   map_editor.map_config = map.map_config
   map_editor.tiles = map.tiles
   map_editor.game_map = map.game_map
+
+  -- Initialise editor module for use
+  map_editor.init()
 end
 
 function love.update(dt)
