@@ -4,12 +4,13 @@ local M = {}
 -- Module fields
 local MENU_SCALE = 0.5
 local selected_tile = nil
-local menu_y = 0
+local menu_y = 20
 local menu_x = 0
 
 local menu_tile_scale = nil
 local right_side = nil
 local menu_tile_height = nil
+local menu_tile_row_max = nil
 
 -- Map configuration values
 M.map_config = nil
@@ -32,6 +33,7 @@ function M.init()
   -- Calculate menu sizing variables
   menu_tile_scale = M.map_config.tile_scale / M.map_config.TILE_DENSITY * MENU_SCALE
   menu_tile_height = selected_tile:getHeight() * menu_tile_scale
+  menu_tile_row_max = math.floor((love.graphics.getHeight()-menu_y) / menu_tile_height)
 end
 
 -- Updates the editor input state
@@ -75,10 +77,11 @@ function M.render()
       -- Increment locational values
       y_loc = y_loc + M.map_config.scaled_tile_height * MENU_SCALE
       count = count + 1
-      if (count == M.map_config.TILE_DENSITY*2) then
+      if (count == menu_tile_row_max) then
         -- Start a new column
         y_loc = menu_y
         x_loc = x_loc + M.map_config.scaled_tile_height * MENU_SCALE
+        count = 0
       end
     end
   end
