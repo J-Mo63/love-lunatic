@@ -3,25 +3,20 @@ local M = {}
 
 -- Module fields
 local MENU_SCALE = 0.5
+local MENU_Y = 20
+local MENU_X = 0
 local selected_tile = nil
-local menu_y = 20
-local menu_x = 0
-
-local menu_tile_scale = nil
 local right_side = nil
+local menu_tile_scale = nil
 local menu_tile_height = nil
-local menu_tile_row_max = nil
+local menu_tile_col_max = nil
 
--- Map configuration values
+-- Imported fields
 M.map_config = nil
-
--- A list of tiles used in the game
 M.tiles = nil
-
--- The map to be edited
 M.game_map = nil
 
-
+-- Initialises the map editor module for use
 function M.init()
   -- Initialise the default tile as selected
   selected_tile = M.tiles.system.placeholder
@@ -33,7 +28,7 @@ function M.init()
   -- Calculate menu sizing variables
   menu_tile_scale = M.map_config.tile_scale / M.map_config.TILE_DENSITY * MENU_SCALE
   menu_tile_height = selected_tile:getHeight() * menu_tile_scale
-  menu_tile_row_max = math.floor((love.graphics.getHeight()-menu_y) / menu_tile_height)
+  menu_tile_col_max = math.floor((love.graphics.getHeight()-MENU_Y) / menu_tile_height)
 end
 
 -- Updates the editor input state
@@ -50,37 +45,34 @@ function M.update()
       -- Update the selected tile with a sprite
       M.game_map[y_tile][x_tile] = selected_tile
     else
-      -- Work out the x and y coordinates for the mouse in tiles
+      -- Work out the x and y coordinates for the mouse in menu tiles
       local x_tile = math.floor(tonumber(x / menu_tile_height))
       local y_tile = math.floor(tonumber(y / menu_tile_height))
-      -- -- Update the selected tile with a sprite
-      -- M.game_map[y_tile][x_tile] = selected_tile
-
-      local tile_index = y_tile + (x_tile * menu_tile_row_max)
+      -- Calculate the index and search for the tile
+      local tile_index = y_tile + (x_tile * menu_tile_col_max)
       local count = 1
       for i, tile_type in pairs(M.tiles) do
         for j, tile in pairs(tile_type) do
-          -- Check if it is the index tile
+          -- Check if it is the index tile to select
           if count == tile_index then
-            -- Select the tile
             selected_tile = tile
           end
           count = count + 1
         end
       end
-
     end
   end
 end
 
 -- Renders the editor menu to the screen
 function M.render()
-  -- Display tile selection
+  -- Display the currently selected tile
   love.graphics.print("Selected:", right_side + 10, 10)
   love.graphics.draw(selected_tile, right_side + 10, 30, 0, menu_tile_scale)
 
-  local x_loc = menu_x
-  local y_loc = menu_y
+  -- Draw the tile menu
+  local x_loc = MENU_X
+  local y_loc = MENU_Y
   local count = 0
   for i, tile_type in pairs(M.tiles) do
     for j, tile in pairs(tile_type) do
@@ -89,9 +81,9 @@ function M.render()
       -- Increment locational values
       y_loc = y_loc + M.map_config.scaled_tile_height * MENU_SCALE
       count = count + 1
-      if (count == menu_tile_row_max) then
+      if (count == menu_tile_col_max) then
         -- Start a new column
-        y_loc = menu_y
+        y_loc = MENU_Y
         x_loc = x_loc + M.map_config.scaled_tile_height * MENU_SCALE
         count = 0
       end

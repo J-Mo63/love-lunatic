@@ -62,7 +62,7 @@ local function load_tiles()
 end
 
 -- Generates an empty game map to start
-local function generate_map()
+local function load_map()
   for i = 1, M.map_config.TILE_DENSITY do
     table.insert(M.game_map, {})
   end
@@ -88,7 +88,7 @@ function M.init()
   M.map_config.letterboxing = (screen_width - screen_height)/2
 
   -- Load the game map
-  generate_map()
+  load_map()
 end
 
 -- Renders the game map to the screen using tiles
