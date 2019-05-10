@@ -56,7 +56,21 @@ function M.update()
       -- -- Update the selected tile with a sprite
       -- M.game_map[y_tile][x_tile] = selected_tile
 
-      to_console = x_tile .. ":" .. y_tile
+      local tile_index = y_tile + (x_tile * menu_tile_row_max)
+      local count = 1
+      for i, tile_type in pairs(M.tiles) do
+        -- Disregard all system tiles
+        if i == "system" then return end
+        for j, tile in pairs(tile_type) do
+          -- Check if it is the index tile
+          if count == tile_index then
+            -- Select the tile
+            selected_tile = tile
+          end
+          count = count + 1
+        end
+      end
+
     end
   end
 end
