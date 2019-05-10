@@ -23,8 +23,8 @@ M.game_map = nil
 
 
 function M.init()
-  -- Initialise currently selected tile
-  selected_tile = M.tiles.grass.centre
+  -- Initialise the default tile as selected
+  selected_tile = M.tiles.system.placeholder
 
   -- Find the right side of the screen
   right_side = (M.map_config.scaled_tile_height 
