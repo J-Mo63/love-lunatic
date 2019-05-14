@@ -13,6 +13,8 @@ M.map_config = {
 M.tiles = {
   system = {},
   grass = {},
+  flora = {},
+  structure = {},
 }
 
 -- The ingame map to be displayed
@@ -59,6 +61,8 @@ local function load_tiles()
   M.tiles.grass.c1ent3re74 = love.graphics.newImage("assets/tiles/grass-centre.png")
   M.tiles.grass.c1e3ntre58 = love.graphics.newImage("assets/tiles/grass-centre.png")
   M.tiles.grass.c1en3tre68 = love.graphics.newImage("assets/tiles/grass-centre.png")
+  M.tiles.flora.bush = love.graphics.newImage("assets/tiles/bush.png")
+  M.tiles.structure.fence = love.graphics.newImage("assets/tiles/fence.png")
 end
 
 -- Generates an empty game map to start
