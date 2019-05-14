@@ -4,6 +4,8 @@ local M = {}
 -- Map configuration values
 M.map_config = {
   TILE_DENSITY = 16,
+  LAYER_1_KEY = 1,
+  LAYER_2_KEY = 2,
   tile_scale = nil,
   scaled_tile_height = nil,
   letterboxing = nil,
@@ -68,7 +70,11 @@ end
 -- Generates an empty game map to start
 local function load_map()
   for i = 1, M.map_config.TILE_DENSITY do
-    table.insert(M.game_map, {})
+    local row = {}
+    for i = 1, M.map_config.TILE_DENSITY do
+      table.insert(row, {})
+    end
+    table.insert(M.game_map, row)
   end
 end
 
@@ -103,8 +109,8 @@ function M.render()
     for j = 1, M.map_config.TILE_DENSITY do
       -- Check if the tile exists in the map
       tile = M.tiles.system.placeholder
-      if M.game_map[i] and M.game_map[i][j] then
-        tile = M.game_map[i][j]
+      if M.game_map[i] and M.game_map[i][j][M.map_config.LAYER_1_KEY] then
+        tile = M.game_map[i][j][M.map_config.LAYER_1_KEY]
       end
       -- Render it to the screen
       love.graphics.draw(tile, x_loc, y_loc, 0, M.map_config.tile_scale / M.map_config.TILE_DENSITY)
