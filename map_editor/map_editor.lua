@@ -64,6 +64,13 @@ function M.update()
       end
     end
   end
+
+  -- Change the selected layer on numerical input
+  if love.keyboard.isDown("1") then
+    selected_layer = M.map_config.LAYER_1_KEY
+  elseif love.keyboard.isDown("2") then
+    selected_layer = M.map_config.LAYER_2_KEY
+  end
 end
 
 -- Renders the editor menu to the screen
