@@ -109,12 +109,15 @@ function M.render()
     local x_loc = M.map_config.letterboxing
     for j = 1, M.map_config.TILE_DENSITY do
       -- Check if the tile exists in the map
-      tile = M.tiles.system.placeholder
-      if M.game_map[i] and M.game_map[i][j][M.map_config.LAYER_1_KEY] then
-        tile = M.game_map[i][j][M.map_config.LAYER_1_KEY]
-      end
+      local tile1 = M.game_map[i][j][M.map_config.LAYER_1_KEY] or M.tiles.system.placeholder
+      local tile2 = M.game_map[i][j][M.map_config.LAYER_2_KEY] or M.tiles.system.transparent
       -- Render it to the screen
-      love.graphics.draw(tile, x_loc, y_loc, 0, M.map_config.tile_scale / M.map_config.TILE_DENSITY)
+      love.graphics.draw(tile1, x_loc, y_loc, 0, 
+        M.map_config.tile_scale / M.map_config.TILE_DENSITY)
+      love.graphics.draw(tile2, x_loc, y_loc, 0, 
+        M.map_config.tile_scale / M.map_config.TILE_DENSITY)
+
+
       x_loc = x_loc + M.map_config.scaled_tile_height
     end
     y_loc = y_loc + M.map_config.scaled_tile_height
