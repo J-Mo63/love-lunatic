@@ -25,6 +25,7 @@ M.game_map = {}
 -- Registers all tile types to the tiles table
 local function load_tiles()
   M.tiles.system.placeholder = love.graphics.newImage("assets/tiles/placeholder.png")
+  M.tiles.system.transparent = love.graphics.newImage("assets/tiles/transparent.png")
   M.tiles.grass.centre = love.graphics.newImage("assets/tiles/grass-centre.png")
   M.tiles.grass.bottom = love.graphics.newImage("assets/tiles/grass-bottom.png")
   M.tiles.grass.top = love.graphics.newImage("assets/tiles/grass-top.png")
