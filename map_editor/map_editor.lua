@@ -40,7 +40,7 @@ function M.update()
     -- Get the mouse position
     local x, y = love.mouse.getPosition()
 
-    if x > M.map_config.letterboxing then
+    if x > M.map_config.letterboxing and x < right_side then
       -- Work out the x and y coordinates for the mouse in tiles
       local x_tile = math.floor(tonumber((x - M.map_config.letterboxing) / M.map_config.scaled_tile_height)) + 1
       local y_tile = math.floor(tonumber(y / M.map_config.scaled_tile_height)) + 1
