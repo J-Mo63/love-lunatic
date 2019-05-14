@@ -6,6 +6,7 @@ local MENU_SCALE = 0.5
 local MENU_Y = 20
 local MENU_X = 0
 local selected_tile = nil
+local selected_layer = nil
 local right_side = nil
 local menu_tile_scale = nil
 local menu_tile_height = nil
@@ -18,8 +19,9 @@ M.game_map = nil
 
 -- Initialises the map editor module for use
 function M.init()
-  -- Initialise the default tile as selected
+  -- Initialise the default tile and layer as selected
   selected_tile = M.tiles.system.placeholder
+  selected_layer = M.map_config.LAYER_1_KEY
 
   -- Find the right side of the screen
   right_side = (M.map_config.scaled_tile_height 
@@ -69,6 +71,10 @@ function M.render()
   -- Display the currently selected tile
   love.graphics.print("Selected:", right_side + 10, 10)
   love.graphics.draw(selected_tile, right_side + 10, 30, 0, menu_tile_scale)
+
+  -- Display the currently selected layer
+  love.graphics.print("Layer:", right_side + 10, 60)
+  love.graphics.print(selected_layer, right_side + 10, 80)
 
   -- Draw the tile menu
   local x_loc = MENU_X
