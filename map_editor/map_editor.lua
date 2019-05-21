@@ -71,6 +71,14 @@ function M.update()
   elseif love.keyboard.isDown("2") then
     selected_layer = M.map_config.LAYER_2_KEY
   end
+
+  -- Save the current map data to a file on command + s
+  if love.keyboard.isDown("lgui") and love.keyboard.isDown("s") then
+    -- Write the file to appdata
+    success, message = love.filesystem.write("map.lua", "data")
+    -- Inform the user
+    to_console = "map saved"
+  end
 end
 
 -- Renders the editor menu to the screen
