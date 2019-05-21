@@ -116,10 +116,10 @@ function M.render()
         M.map_config.tile_scale / M.map_config.TILE_DENSITY)
       love.graphics.draw(tile2, x_loc, y_loc, 0, 
         M.map_config.tile_scale / M.map_config.TILE_DENSITY)
-
-
+      -- Increment the x location of the tile
       x_loc = x_loc + M.map_config.scaled_tile_height
     end
+    -- Increment the y location of the tile
     y_loc = y_loc + M.map_config.scaled_tile_height
   end
 end
