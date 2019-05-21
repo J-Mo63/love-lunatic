@@ -14,6 +14,6 @@ open -a love ./map_editor
 ## Project Structure
 All modules are contained within `/scripts/` and expose one of three methods in the `M` table.
 
-- init()
-- update()
-- render()
+- `init()`
+- `update()`
+- `render()`
