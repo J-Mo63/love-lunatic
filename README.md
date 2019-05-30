@@ -1,5 +1,5 @@
-# An Unknowable Adventure
-An adventure game and inbuilt editor built in Lua with LÖVE (the LÖVE Engine).
+# Unknowable Adventure
+An adventure game framework with an inbuilt map/game editor built in Lua with LÖVE (the LÖVE Engine).
 
 ## Usage
 Assuming you have LÖVE installed on your system, you can run the game with the following command:
