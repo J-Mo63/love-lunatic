@@ -74,11 +74,23 @@ function M.update()
 
   -- Save the current map data to a file on command + s
   if love.keyboard.isDown("lgui") and love.keyboard.isDown("s") then
+
+    -- Construct map data in the recall format
+    local some_data = "Number{int_val = 300, str_val = 'three hundred'}"
+
     -- Write the file to appdata
-    success, message = love.filesystem.write("map.lua", "data")
+    success, message = love.filesystem.write("new_map.lua", some_data)
     -- Inform the user
     to_console = "map saved"
   end
+
+  if love.keyboard.isDown("lgui") and love.keyboard.isDown("l") then
+    require("maps.new_map")
+  end
+end
+
+function Number (n)
+  to_console = tostring(n.int_val) .. " " .. n.str_val
 end
 
 -- Renders the editor menu to the screen
