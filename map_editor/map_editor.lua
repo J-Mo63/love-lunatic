@@ -74,23 +74,49 @@ function M.update()
 
   -- Save the current map data to a file on command + s
   if love.keyboard.isDown("lgui") and love.keyboard.isDown("s") then
-
     -- Construct map data in the recall format
-    local some_data = "Number{int_val = 300, str_val = 'three hundred'}"
+    local save_data = "LoadMap{"
+    for i = 1, M.map_config.TILE_DENSITY do
+      save_data = save_data .. "{"
+      for j = 1, M.map_config.TILE_DENSITY do
+        -- Get the tiles for the map index
+        local tile1 = M.game_map[i][j][M.map_config.LAYER_1_KEY] or M.tiles.system.placeholder
+        local tile2 = M.game_map[i][j][M.map_config.LAYER_2_KEY] or M.tiles.system.transparent
 
+        -- Find references to the tiles
+        local tile1_ref
+        local tile2_ref
+        for tile_family, tile_type in pairs(M.tiles) do
+          for tile_id, tile in pairs(tile_type) do
+            if tile == tile1 then
+              tile1_ref = tile_family .. "." .. tile_id
+            end
+            if tile == tile2 then
+              tile2_ref = tile_family .. "." .. tile_id
+            end
+          end
+        end
+
+        -- Append the tiles to the save data
+        save_data = save_data .. "{layer_1='" .. tile1_ref .. "', layer_2='" .. tile2_ref .. "'},"
+      end
+      save_data = save_data .. "},"
+    end
+    save_data = save_data .. "}"
     -- Write the file to appdata
-    success, message = love.filesystem.write("new_map.lua", some_data)
+    success, message = love.filesystem.write("new_map.lua", save_data)
     -- Inform the user
     to_console = "map saved"
   end
 
   if love.keyboard.isDown("lgui") and love.keyboard.isDown("l") then
     require("maps.new_map")
+    -- to_console = "map loaded"
   end
 end
 
-function Number (n)
-  to_console = tostring(n.int_val) .. " " .. n.str_val
+function LoadMap(map)
+  to_console = map[1][1].layer_2
 end
 
 -- Renders the editor menu to the screen
