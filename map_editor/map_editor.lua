@@ -20,7 +20,7 @@ M.game_map = nil
 -- Initialises the map editor module for use
 function M.init()
   -- Initialise the default tile and layer as selected
-  selected_tile = M.tiles.system.placeholder
+  selected_tile = M.tiles.placeholder
   selected_layer = M.map_config.LAYER_1_KEY
 
   -- Find the right side of the screen
@@ -53,14 +53,12 @@ function M.update()
       -- Calculate the index and search for the tile
       local tile_index = y_tile + (x_tile * menu_tile_col_max)
       local count = 1
-      for i, tile_type in pairs(M.tiles) do
-        for j, tile in pairs(tile_type) do
-          -- Check if it is the index tile to select
-          if count == tile_index then
-            selected_tile = tile
-          end
-          count = count + 1
+      for i, tile in pairs(M.tiles) do
+        -- Check if it is the index tile to select
+        if count == tile_index then
+          selected_tile = tile
         end
+        count = count + 1
       end
     end
   end
@@ -80,20 +78,18 @@ function M.update()
       save_data = save_data .. "{"
       for j = 1, M.map_config.TILE_DENSITY do
         -- Get the tiles for the map index
-        local tile1 = M.game_map[i][j][M.map_config.LAYER_1_KEY] or M.tiles.system.placeholder
-        local tile2 = M.game_map[i][j][M.map_config.LAYER_2_KEY] or M.tiles.system.transparent
+        local tile1 = M.game_map[i][j][M.map_config.LAYER_1_KEY] or M.tiles.placeholder
+        local tile2 = M.game_map[i][j][M.map_config.LAYER_2_KEY] or M.tiles.transparent
 
         -- Find references to the tiles
         local tile1_ref
         local tile2_ref
-        for tile_family, tile_type in pairs(M.tiles) do
-          for tile_id, tile in pairs(tile_type) do
-            if tile == tile1 then
-              tile1_ref = tile_family .. "." .. tile_id
-            end
-            if tile == tile2 then
-              tile2_ref = tile_family .. "." .. tile_id
-            end
+        for tile_id, tile in pairs(M.tiles) do
+          if tile == tile1 then
+            tile1_ref = tile_id
+          end
+          if tile == tile2 then
+            tile2_ref = tile_id
           end
         end
 
@@ -117,9 +113,7 @@ end
 
 function LoadMap(map)
   local tile_name = map[1][1].layer_2
-
-  local tile_type, tile_name = tile_name:match"([^.]*).(.*)"
-  to_console = tostring(M.tiles[tile_type][tile_name])
+  to_console = tostring(M.tiles[tile_name])
 end
 
 -- Renders the editor menu to the screen
@@ -136,19 +130,17 @@ function M.render()
   local x_loc = MENU_X
   local y_loc = MENU_Y
   local count = 0
-  for i, tile_type in pairs(M.tiles) do
-    for j, tile in pairs(tile_type) do
-      -- Draw the tile to the menu
-      love.graphics.draw(tile, x_loc, y_loc, 0, menu_tile_scale)
-      -- Increment locational values
-      y_loc = y_loc + M.map_config.scaled_tile_height * MENU_SCALE
-      count = count + 1
-      if (count == menu_tile_col_max) then
-        -- Start a new column
-        y_loc = MENU_Y
-        x_loc = x_loc + M.map_config.scaled_tile_height * MENU_SCALE
-        count = 0
-      end
+  for i, tile in pairs(M.tiles) do
+    -- Draw the tile to the menu
+    love.graphics.draw(tile, x_loc, y_loc, 0, menu_tile_scale)
+    -- Increment locational values
+    y_loc = y_loc + M.map_config.scaled_tile_height * MENU_SCALE
+    count = count + 1
+    if (count == menu_tile_col_max) then
+      -- Start a new column
+      y_loc = MENU_Y
+      x_loc = x_loc + M.map_config.scaled_tile_height * MENU_SCALE
+      count = 0
     end
   end
 end

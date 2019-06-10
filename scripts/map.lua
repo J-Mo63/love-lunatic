@@ -11,29 +11,24 @@ M.map_config = {
   letterboxing = nil,
 }
 
--- A list of M.tiles used in the game
-M.tiles = {
-  system = {},
-  grass = {},
-  flora = {},
-  structure = {},
-}
+-- A list of tiles used in the game
+M.tiles = {}
 
 -- The ingame map to be displayed
 M.game_map = {}
 
 -- Registers all tile types to the tiles table
 local function load_tiles()
-  M.tiles.system.placeholder = love.graphics.newImage("assets/tiles/placeholder.png")
-  M.tiles.system.transparent = love.graphics.newImage("assets/tiles/transparent.png")
-  M.tiles.grass.centre = love.graphics.newImage("assets/tiles/grass-centre.png")
-  M.tiles.grass.bottom = love.graphics.newImage("assets/tiles/grass-bottom.png")
-  M.tiles.grass.top = love.graphics.newImage("assets/tiles/grass-top.png")
-  M.tiles.grass.left = love.graphics.newImage("assets/tiles/grass-left.png")
-  M.tiles.grass.right = love.graphics.newImage("assets/tiles/grass-right.png")
-  M.tiles.grass.topLeft = love.graphics.newImage("assets/tiles/grass-top-left.png")
-  M.tiles.flora.bush = love.graphics.newImage("assets/tiles/bush.png")
-  M.tiles.structure.fence = love.graphics.newImage("assets/tiles/fence.png")
+  M.tiles.placeholder = love.graphics.newImage("assets/tiles/placeholder.png")
+  M.tiles.transparent = love.graphics.newImage("assets/tiles/transparent.png")
+  M.tiles.grass_centre = love.graphics.newImage("assets/tiles/grass-centre.png")
+  M.tiles.grass_bottom = love.graphics.newImage("assets/tiles/grass-bottom.png")
+  M.tiles.grass_top = love.graphics.newImage("assets/tiles/grass-top.png")
+  M.tiles.grass_left = love.graphics.newImage("assets/tiles/grass-left.png")
+  M.tiles.grass_right = love.graphics.newImage("assets/tiles/grass-right.png")
+  M.tiles.grass_topLeft = love.graphics.newImage("assets/tiles/grass-top-left.png")
+  M.tiles.bush = love.graphics.newImage("assets/tiles/bush.png")
+  M.tiles.fence = love.graphics.newImage("assets/tiles/fence.png")
 end
 
 -- Generates an empty game map to start
@@ -53,7 +48,7 @@ function M.init()
   load_tiles()
 
   -- Get the height of the imported tileset
-  local tileset_height = M.tiles.grass.centre:getWidth()
+  local tileset_height = M.tiles.grass_centre:getWidth()
   
   -- Get the screen dimensions
   local screen_width = love.graphics.getWidth()
@@ -77,8 +72,8 @@ function M.render()
     local x_loc = M.map_config.letterboxing
     for j = 1, M.map_config.TILE_DENSITY do
       -- Check if the tile exists in the map
-      local tile1 = M.game_map[i][j][M.map_config.LAYER_1_KEY] or M.tiles.system.placeholder
-      local tile2 = M.game_map[i][j][M.map_config.LAYER_2_KEY] or M.tiles.system.transparent
+      local tile1 = M.game_map[i][j][M.map_config.LAYER_1_KEY] or M.tiles.placeholder
+      local tile2 = M.game_map[i][j][M.map_config.LAYER_2_KEY] or M.tiles.transparent
       -- Render it to the screen
       love.graphics.draw(tile1, x_loc, y_loc, 0, 
         M.map_config.tile_scale / M.map_config.TILE_DENSITY)
