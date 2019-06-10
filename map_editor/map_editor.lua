@@ -116,7 +116,10 @@ function M.update()
 end
 
 function LoadMap(map)
-  to_console = map[1][1].layer_2
+  local tile_name = map[1][1].layer_2
+
+  local tile_type, tile_name = tile_name:match"([^.]*).(.*)"
+  to_console = tostring(M.tiles[tile_type][tile_name])
 end
 
 -- Renders the editor menu to the screen
