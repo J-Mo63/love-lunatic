@@ -33,6 +33,50 @@ function M.init()
   menu_tile_col_max = math.floor((love.graphics.getHeight()-MENU_Y) / menu_tile_height)
 end
 
+function save_map()
+  -- Construct map data in the recall format
+  local save_data = "load_map {"
+  for i = 1, M.map_config.TILE_DENSITY do
+    save_data = save_data .. "{"
+    for j = 1, M.map_config.TILE_DENSITY do
+      -- Get the tiles for the map index
+      local tile1 = M.game_map[i][j][M.map_config.LAYER_1_KEY] or M.tiles.placeholder
+      local tile2 = M.game_map[i][j][M.map_config.LAYER_2_KEY] or M.tiles.transparent
+
+      -- Find references to the tiles
+      local tile1_ref
+      local tile2_ref
+      for tile_id, tile in pairs(M.tiles) do
+        if tile == tile1 then
+          tile1_ref = tile_id
+        end
+        if tile == tile2 then
+          tile2_ref = tile_id
+        end
+      end
+
+      -- Append the tiles to the save data
+      save_data = save_data .. "{'" .. tile1_ref .. "', '" .. tile2_ref .. "'},"
+    end
+    save_data = save_data .. "},"
+  end
+  save_data = save_data .. "}"
+  
+  -- Write the file to appdata
+  love.filesystem.write("new_map.lua", save_data)
+end
+
+function load_map(map)
+  for i, row in ipairs(map) do
+    for j, tile in ipairs(row) do
+      map[i][j][M.map_config.LAYER_1_KEY] = M.tiles[tile[M.map_config.LAYER_1_KEY]]
+      map[i][j][M.map_config.LAYER_2_KEY] = M.tiles[tile[M.map_config.LAYER_2_KEY]]
+    end
+  end
+
+  M.game_map = map
+end
+
 -- Updates the editor input state
 function M.update()
   -- Check if the mouse button is down
@@ -72,36 +116,8 @@ function M.update()
 
   -- Save the current map data to a file on command + s
   if love.keyboard.isDown("lgui") and love.keyboard.isDown("s") then
-    -- Construct map data in the recall format
-    local save_data = "LoadMap{"
-    for i = 1, M.map_config.TILE_DENSITY do
-      save_data = save_data .. "{"
-      for j = 1, M.map_config.TILE_DENSITY do
-        -- Get the tiles for the map index
-        local tile1 = M.game_map[i][j][M.map_config.LAYER_1_KEY] or M.tiles.placeholder
-        local tile2 = M.game_map[i][j][M.map_config.LAYER_2_KEY] or M.tiles.transparent
-
-        -- Find references to the tiles
-        local tile1_ref
-        local tile2_ref
-        for tile_id, tile in pairs(M.tiles) do
-          if tile == tile1 then
-            tile1_ref = tile_id
-          end
-          if tile == tile2 then
-            tile2_ref = tile_id
-          end
-        end
-
-        -- Append the tiles to the save data
-        save_data = save_data .. "{'" .. tile1_ref .. "', '" .. tile2_ref .. "'},"
-      end
-      save_data = save_data .. "},"
-    end
-    save_data = save_data .. "}"
-    -- Write the file to appdata
-    success, message = love.filesystem.write("new_map.lua", save_data)
-    -- Inform the user
+    -- Save the map and inform the user
+    save_map()
     to_console = "map saved"
   end
 
@@ -109,17 +125,6 @@ function M.update()
     require("maps.new_map")
     to_console = "map loaded"
   end
-end
-
-function LoadMap(map)
-  for i, row in ipairs(map) do
-    for j, tile in ipairs(row) do
-      map[i][j][M.map_config.LAYER_1_KEY] = M.tiles[tile[M.map_config.LAYER_1_KEY]]
-      map[i][j][M.map_config.LAYER_2_KEY] = M.tiles[tile[M.map_config.LAYER_2_KEY]]
-    end
-  end
-
-  M.game_map = map
 end
 
 -- Renders the editor menu to the screen
