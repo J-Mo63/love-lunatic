@@ -107,13 +107,19 @@ function M.update()
 
   if love.keyboard.isDown("lgui") and love.keyboard.isDown("l") then
     require("maps.new_map")
-    -- to_console = "map loaded"
+    to_console = "map loaded"
   end
 end
 
 function LoadMap(map)
-  local tile_name = map[2][1][M.map_config.LAYER_2_KEY]
-  to_console = tostring(M.tiles[tile_name])
+  for i, row in ipairs(map) do
+    for j, tile in ipairs(row) do
+      map[i][j][M.map_config.LAYER_1_KEY] = M.tiles[tile[M.map_config.LAYER_1_KEY]]
+      map[i][j][M.map_config.LAYER_2_KEY] = M.tiles[tile[M.map_config.LAYER_2_KEY]]
+    end
+  end
+
+  M.game_map = map
 end
 
 -- Renders the editor menu to the screen
