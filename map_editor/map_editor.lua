@@ -94,7 +94,7 @@ function M.update()
         end
 
         -- Append the tiles to the save data
-        save_data = save_data .. "{layer_1='" .. tile1_ref .. "', layer_2='" .. tile2_ref .. "'},"
+        save_data = save_data .. "{'" .. tile1_ref .. "', '" .. tile2_ref .. "'},"
       end
       save_data = save_data .. "},"
     end
@@ -112,7 +112,7 @@ function M.update()
 end
 
 function LoadMap(map)
-  local tile_name = map[1][1].layer_2
+  local tile_name = map[2][1][M.map_config.LAYER_2_KEY]
   to_console = tostring(M.tiles[tile_name])
 end
 
