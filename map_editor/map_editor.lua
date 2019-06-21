@@ -40,28 +40,26 @@ function save_map()
     save_data = save_data .. "{"
     for j = 1, M.map_config.TILE_DENSITY do
       -- Get the tiles for the map index
-      local tile1 = M.game_map[i][j][M.map_config.LAYER_1_KEY] or M.tiles.placeholder
-      local tile2 = M.game_map[i][j][M.map_config.LAYER_2_KEY] or M.tiles.transparent
-
+      local layer_1_tile = M.game_map[i][j][M.map_config.LAYER_1_KEY] or M.tiles.placeholder
+      local layer_2_tile = M.game_map[i][j][M.map_config.LAYER_2_KEY] or M.tiles.transparent
       -- Find references to the tiles
-      local tile1_ref
-      local tile2_ref
-      for tile_id, tile in pairs(M.tiles) do
-        if tile == tile1 then
-          tile1_ref = tile_id
+      local layer_1_key
+      local layer_2_key
+      for tile_key, tile in pairs(M.tiles) do
+        if tile == layer_1_tile then
+          layer_1_key = tile_key
         end
-        if tile == tile2 then
-          tile2_ref = tile_id
+        if tile == layer_2_tile then
+          layer_2_key = tile_key
         end
       end
-
-      -- Append the tiles to the save data
-      save_data = save_data .. "{'" .. tile1_ref .. "', '" .. tile2_ref .. "'},"
+      -- Append the tile references to the save data
+      save_data = save_data .. "{'" .. layer_1_key .. "', '" .. layer_2_key .. "'},"
     end
     save_data = save_data .. "},"
   end
   save_data = save_data .. "}"
-  
+
   -- Write the file to appdata
   love.filesystem.write("new_map.lua", save_data)
 end
