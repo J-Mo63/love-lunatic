@@ -54,7 +54,7 @@ function save_map()
         end
       end
       -- Append the tile references to the save data
-      save_data = save_data .. "{'" .. layer_1_key .. "', '" .. layer_2_key .. "'},"
+      save_data = save_data .. "{'" .. layer_1_key .. "', '" .. layer_2_key .. "', '" .. "tag" .. "'},"
     end
     save_data = save_data .. "},"
   end
