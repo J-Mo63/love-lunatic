@@ -6,6 +6,7 @@ M.map_config = {
   TILE_DENSITY = 16,
   LAYER_1_KEY = 1,
   LAYER_2_KEY = 2,
+  TAG_KEY = 3,
   tile_scale = nil,
   scaled_tile_height = nil,
   letterboxing = nil,
