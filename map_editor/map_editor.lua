@@ -152,6 +152,23 @@ function M.render()
       count = 0
     end
   end
+
+  local y_loc = 0
+  for i = 1, M.map_config.TILE_DENSITY do
+    local x_loc = M.map_config.letterboxing
+    for j = 1, M.map_config.TILE_DENSITY do
+      -- Get the tag for the tile
+      local tag = M.game_map[i][j][M.map_config.TAG_KEY]
+      -- Render the tag to the screen
+      if (tag) then
+        love.graphics.print(tag, x_loc, y_loc)
+      end
+      -- Increment the x location of the tile
+      x_loc = x_loc + M.map_config.scaled_tile_height
+    end
+    -- Increment the y location of the tile
+    y_loc = y_loc + M.map_config.scaled_tile_height
+  end
 end
  
 return M
