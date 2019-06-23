@@ -7,6 +7,7 @@ local MENU_Y = 20
 local MENU_X = 0
 local selected_tile = nil
 local selected_layer = nil
+local selected_tag = "tag"
 local right_side = nil
 local menu_tile_scale = nil
 local menu_tile_height = nil
@@ -42,6 +43,7 @@ function save_map()
       -- Get the tiles for the map index
       local layer_1_tile = M.game_map[i][j][M.map_config.LAYER_1_KEY] or M.tiles.placeholder
       local layer_2_tile = M.game_map[i][j][M.map_config.LAYER_2_KEY] or M.tiles.transparent
+      local tile_tag = M.game_map[i][j][M.map_config.TAG_KEY]
       -- Find references to the tiles
       local layer_1_key
       local layer_2_key
@@ -54,7 +56,12 @@ function save_map()
         end
       end
       -- Append the tile references to the save data
-      save_data = save_data .. "{'" .. layer_1_key .. "', '" .. layer_2_key .. "', '" .. "tag" .. "'},"
+      save_data = save_data .. "{'" .. layer_1_key .. "', '" .. layer_2_key
+      -- Append the tile tag to the save data
+      if tile_tag then
+        save_data = save_data .. "', '" .. tile_tag
+      end
+      save_data = save_data .. "'},"
     end
     save_data = save_data .. "},"
   end
@@ -87,7 +94,11 @@ function M.update()
       local x_tile = math.floor(tonumber((x - M.map_config.letterboxing) / M.map_config.scaled_tile_height)) + 1
       local y_tile = math.floor(tonumber(y / M.map_config.scaled_tile_height)) + 1
       -- Update the selected tile with a sprite
-      M.game_map[y_tile][x_tile][selected_layer] = selected_tile
+      if selected_layer == 3 then
+        M.game_map[y_tile][x_tile][selected_layer] = selected_tag
+      else
+        M.game_map[y_tile][x_tile][selected_layer] = selected_tile
+      end
     else
       -- Work out the x and y coordinates for the mouse in menu tiles
       local x_tile = math.floor(tonumber(x / menu_tile_height))
@@ -110,6 +121,8 @@ function M.update()
     selected_layer = M.map_config.LAYER_1_KEY
   elseif love.keyboard.isDown("2") then
     selected_layer = M.map_config.LAYER_2_KEY
+  elseif love.keyboard.isDown("3") then
+    selected_layer = M.map_config.TAG_KEY
   end
 
   -- Save the current map data to a file on command + s
