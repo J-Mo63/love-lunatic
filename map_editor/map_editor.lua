@@ -7,7 +7,7 @@ local MENU_Y = 20
 local MENU_X = 0
 local selected_tile = nil
 local selected_layer = nil
-local selected_tag = "tag"
+local selected_tag = ""
 local right_side = nil
 local menu_tile_scale = nil
 local menu_tile_height = nil
@@ -145,8 +145,13 @@ function M.render()
   love.graphics.draw(selected_tile, right_side + 10, 30, 0, menu_tile_scale)
 
   -- Display the currently selected layer
-  love.graphics.print("Layer:", right_side + 10, 60)
-  love.graphics.print(selected_layer, right_side + 10, 80)
+  love.graphics.print("Layer: " .. selected_layer, right_side + 10, 60)
+
+  -- Display the currently selected tag name
+  if selected_layer == 3 then
+    love.graphics.print("Tag: " .. selected_tag, right_side + 10, 80)
+  end
+
 
   -- Draw the tile menu
   local x_loc = MENU_X
