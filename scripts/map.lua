@@ -9,6 +9,7 @@ M.map_config = {
   TAG_KEY = 3,
   tile_scale = nil,
   scaled_tile_height = nil,
+  map_tile_scale = nil,
   letterboxing = nil,
 }
 
@@ -58,6 +59,7 @@ function M.init()
   -- Get the tile-scaling variables
   M.map_config.tile_scale = screen_height / tileset_height
   M.map_config.scaled_tile_height = tileset_height * M.map_config.tile_scale / M.map_config.TILE_DENSITY
+  M.map_config.map_tile_scale = M.map_config.tile_scale / M.map_config.TILE_DENSITY
 
   -- Calculate the M.map_config.letterboxing offset
   M.map_config.letterboxing = (screen_width - screen_height)/2
@@ -76,10 +78,8 @@ function M.render()
       local tile1 = M.game_map[i][j][M.map_config.LAYER_1_KEY] or M.tiles.placeholder
       local tile2 = M.game_map[i][j][M.map_config.LAYER_2_KEY] or M.tiles.transparent
       -- Render it to the screen
-      love.graphics.draw(tile1, x_loc, y_loc, 0, 
-        M.map_config.tile_scale / M.map_config.TILE_DENSITY)
-      love.graphics.draw(tile2, x_loc, y_loc, 0, 
-        M.map_config.tile_scale / M.map_config.TILE_DENSITY)
+      love.graphics.draw(tile1, x_loc, y_loc, 0, M.map_config.map_tile_scale)
+      love.graphics.draw(tile2, x_loc, y_loc, 0, M.map_config.map_tile_scale)
       -- Increment the x location of the tile
       x_loc = x_loc + M.map_config.scaled_tile_height
     end
