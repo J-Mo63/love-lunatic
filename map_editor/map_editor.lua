@@ -117,12 +117,14 @@ function M.update()
   end
 
   -- Change the selected layer on numerical input
-  if love.keyboard.isDown("1") then
-    selected_layer = M.map_config.LAYER_1_KEY
-  elseif love.keyboard.isDown("2") then
-    selected_layer = M.map_config.LAYER_2_KEY
-  elseif love.keyboard.isDown("3") then
-    selected_layer = M.map_config.TAG_KEY
+  if love.keyboard.isDown("lgui") then
+    if love.keyboard.isDown("1") then
+      selected_layer = M.map_config.LAYER_1_KEY
+    elseif love.keyboard.isDown("2") then
+      selected_layer = M.map_config.LAYER_2_KEY
+    elseif love.keyboard.isDown("3") then
+      selected_layer = M.map_config.TAG_KEY
+    end
   end
 
   -- Save the current map data to a file on command + s
