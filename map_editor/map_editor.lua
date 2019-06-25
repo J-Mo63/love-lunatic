@@ -134,9 +134,26 @@ function M.update()
     to_console = "map saved"
   end
 
+  -- Load the current map data from a file on command + l
   if love.keyboard.isDown("lgui") and love.keyboard.isDown("l") then
     require("maps.new_map")
     to_console = "map loaded"
+  end
+end
+
+-- Get text input when typing in tag mode
+function love.textinput(t)
+  if selected_layer == M.map_config.TAG_KEY then
+    selected_tag = selected_tag .. t
+  end
+end
+
+-- Delete characters when typing in tag mode
+function love.keypressed(key, isrepeat)
+  if selected_layer == M.map_config.TAG_KEY then
+    if key == "backspace" then
+      selected_tag = selected_tag:sub(1, -2)
+    end
   end
 end
 
@@ -151,7 +168,7 @@ function M.render()
 
   -- Display the currently selected tag name
   if selected_layer == 3 then
-    love.graphics.print("Tag: " .. selected_tag, right_side + 10, 80)
+    love.graphics.print("Tag: " .. selected_tag .. "_", right_side + 10, 80)
   end
 
 
