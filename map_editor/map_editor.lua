@@ -57,8 +57,8 @@ function save_map()
       end
       -- Append the tile references to the save data
       save_data = save_data .. "{'" .. layer_1_key .. "', '" .. layer_2_key
-      -- Append the tile tag to the save data
       if tile_tag then
+        -- Append the tile tag to the save data
         save_data = save_data .. "', '" .. tile_tag
       end
       save_data = save_data .. "'},"
@@ -95,7 +95,7 @@ function M.update()
       local y_tile = math.floor(tonumber(y / M.map_config.scaled_tile_height)) + 1
       -- Update the selected tile with a sprite
       if selected_layer == 3 then
-        M.game_map[y_tile][x_tile][selected_layer] = selected_tag
+        M.game_map[y_tile][x_tile][selected_layer] = (selected_tag == "") and nil or selected_tag
       else
         M.game_map[y_tile][x_tile][selected_layer] = selected_tile
       end
