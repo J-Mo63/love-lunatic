@@ -19,6 +19,9 @@ M.tiles = {}
 -- The ingame map to be displayed
 M.game_map = {}
 
+-- The map canvas to be drawn
+local map_canvas = nil
+
 -- Registers all tile types to the tiles table
 local function load_tiles()
   M.tiles.placeholder = love.graphics.newImage("assets/tiles/placeholder.png")
@@ -46,11 +49,11 @@ end
 
 -- Initialises the map module for use
 function M.init()
-  -- Load the M.tiles
+  -- Load the tiles
   load_tiles()
 
   -- Get the height of the imported tileset
-  local tileset_height = M.tiles.grass_centre:getWidth()
+  local tileset_height = M.tiles.placeholder:getWidth()
   
   -- Get the screen dimensions
   local screen_width = love.graphics.getWidth()
@@ -66,13 +69,17 @@ function M.init()
 
   -- Load the game map
   load_map()
+
+  -- Create and initialse the map canvas with tiles
+  map_canvas = love.graphics.newCanvas(screen_height, screen_height)
+  updateCanvas()
 end
 
--- Renders the game map to the screen using tiles
-function M.render()
+function updateCanvas()
+  love.graphics.setCanvas(map_canvas)
   local y_loc = 0
   for i = 1, M.map_config.TILE_DENSITY do
-    local x_loc = M.map_config.letterboxing
+    local x_loc = 0
     for j = 1, M.map_config.TILE_DENSITY do
       -- Check if the tile exists in the map
       local tile1 = M.game_map[i][j][M.map_config.LAYER_1_KEY] or M.tiles.placeholder
@@ -86,6 +93,13 @@ function M.render()
     -- Increment the y location of the tile
     y_loc = y_loc + M.map_config.scaled_tile_height
   end
+  love.graphics.setCanvas()
+end
+
+-- Renders the game map to the screen
+function M.render()
+  -- Draw the map canvas with the letterbox offset
+  love.graphics.draw(map_canvas, M.map_config.letterboxing)
 end
  
 return M
