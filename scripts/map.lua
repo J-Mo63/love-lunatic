@@ -38,13 +38,15 @@ end
 
 -- Generates an empty game map to start
 local function load_map()
+  local new_map = {}
   for i = 1, M.map_config.TILE_DENSITY do
     local row = {}
     for i = 1, M.map_config.TILE_DENSITY do
       table.insert(row, {})
     end
-    table.insert(M.game_map, row)
+    table.insert(new_map, row)
   end
+  return new_map
 end
 
 -- Initialises the map module for use
@@ -67,12 +69,19 @@ function M.init()
   -- Calculate the M.map_config.letterboxing offset
   M.map_config.letterboxing = (screen_width - screen_height)/2
 
-  -- Load the game map
-  load_map()
+  -- Initialse the map canvas
+  map_canvas = love.graphics.newCanvas(screen_height, screen_height)
 
+  -- Load the game map and draw it to the canvas
+  M.update_map(load_map())
+end
+
+function M.update_map(game_map)
+  -- Update the stored game map
+  M.game_map = game_map
   -- Create and initialse the map canvas with tiles
   map_canvas = love.graphics.newCanvas(screen_height, screen_height)
-  updateCanvas()
+  update_canvas()
 end
 
 function update_canvas()
