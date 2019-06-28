@@ -75,8 +75,9 @@ function M.init()
   updateCanvas()
 end
 
-function updateCanvas()
+function update_canvas()
   love.graphics.setCanvas(map_canvas)
+  love.graphics.clear()
   local y_loc = 0
   for i = 1, M.map_config.TILE_DENSITY do
     local x_loc = 0
