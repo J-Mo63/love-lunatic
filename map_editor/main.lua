@@ -25,7 +25,9 @@ function love.update(dt)
   map_editor.update()
 
   -- Update the map to display changes
-  map.game_map = map_editor.game_map
+  if map_editor.map_updated then
+    map.update_map(map_editor.game_map)
+  end
 end
 
 function love.draw()
