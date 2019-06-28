@@ -18,6 +18,9 @@ M.map_config = nil
 M.tiles = nil
 M.game_map = nil
 
+-- Public fields
+M.map_updated = false
+
 -- Initialises the map editor module for use
 function M.init()
   -- Initialise the default tile and layer as selected
@@ -78,7 +81,6 @@ function load_map(map)
       map[i][j][M.map_config.LAYER_2_KEY] = M.tiles[tile[M.map_config.LAYER_2_KEY]]
     end
   end
-
   M.game_map = map
 end
 
@@ -114,6 +116,7 @@ function M.update()
         count = count + 1
       end
     end
+    M.map_updated = true
   end
 
   -- Change the selected layer on numerical input
@@ -137,6 +140,7 @@ function M.update()
   -- Load the current map data from a file on command + l
   if love.keyboard.isDown("lgui") and love.keyboard.isDown("l") then
     require("maps.new_map")
+    M.map_updated = true
     to_console = "map loaded"
   end
 end
