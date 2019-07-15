@@ -119,8 +119,9 @@ function M.update()
     M.map_updated = true
   end
 
-  -- Change the selected layer on numerical input
+  -- Define command functions
   if love.keyboard.isDown("lgui") then
+    -- Change the selected layer on numerical input
     if love.keyboard.isDown("1") then
       selected_layer = M.map_config.LAYER_1_KEY
     elseif love.keyboard.isDown("2") then
@@ -128,20 +129,20 @@ function M.update()
     elseif love.keyboard.isDown("3") then
       selected_layer = M.map_config.TAG_KEY
     end
-  end
 
-  -- Save the current map data to a file on command + s
-  if love.keyboard.isDown("lgui") and love.keyboard.isDown("s") then
-    -- Save the map and inform the user
-    save_map()
-    to_console = "map saved"
-  end
+    -- Save the current map data to a file on command + s
+    if love.keyboard.isDown("s") then
+      -- Save the map and inform the user
+      save_map()
+      to_console = "map saved"
+    end
 
-  -- Load the current map data from a file on command + l
-  if love.keyboard.isDown("lgui") and love.keyboard.isDown("l") then
-    require("maps.new_map")
-    M.map_updated = true
-    to_console = "map loaded"
+    -- Load the current map data from a file on command + l
+    if love.keyboard.isDown("l") then
+      require("maps.new_map")
+      M.map_updated = true
+      to_console = "map loaded"
+    end
   end
 end
 
