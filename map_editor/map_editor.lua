@@ -101,6 +101,7 @@ function M.update()
       else
         M.game_map[y_tile][x_tile][selected_layer] = selected_tile
       end
+      M.map_updated = true
     else
       -- Work out the x and y coordinates for the mouse in menu tiles
       local x_tile = math.floor(tonumber(x / menu_tile_height))
@@ -115,8 +116,8 @@ function M.update()
         end
         count = count + 1
       end
+      M.map_updated = true
     end
-    M.map_updated = true
   end
 
   -- Define command functions
