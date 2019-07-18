@@ -74,13 +74,7 @@ function save_map()
   love.filesystem.write("edit_map.lua", save_data)
 end
 
-function load_map(map)
-  for i, row in ipairs(map) do
-    for j, tile in ipairs(row) do
-      map[i][j][M.map_config.LAYER_1_KEY] = M.tiles[tile[M.map_config.LAYER_1_KEY]]
-      map[i][j][M.map_config.LAYER_2_KEY] = M.tiles[tile[M.map_config.LAYER_2_KEY]]
-    end
-  end
+function M.update_map(map)
   M.game_map = map
 end
 
@@ -140,7 +134,8 @@ function M.update()
 
     -- Load the current map data from a file on command + l
     if love.keyboard.isDown("l") then
-      require("maps.new_map")
+      local map_loader = require("scripts.map_loader")
+      map_loader.init("edit_map", M)
       M.map_updated = true
       to_console = "map loaded"
     end
