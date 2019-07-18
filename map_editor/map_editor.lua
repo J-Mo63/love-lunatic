@@ -71,7 +71,7 @@ function save_map()
   save_data = save_data .. "}"
 
   -- Write the file to appdata
-  love.filesystem.write("new_map.lua", save_data)
+  love.filesystem.write("edit_map.lua", save_data)
 end
 
 function load_map(map)

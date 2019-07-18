@@ -1,1 +1,0 @@
-Number{int_val = 300, str_val = 'three hundred'}
