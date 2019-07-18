@@ -177,7 +177,6 @@ function M.render()
     love.graphics.print("Tag: " .. selected_tag .. "_", right_side + 10, 80)
   end
 
-
   -- Draw the tile menu
   local x_loc = MENU_X
   local y_loc = MENU_Y
