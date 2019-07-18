@@ -103,7 +103,7 @@ function update_canvas()
     -- Increment the y location of the tile
     y_loc = y_loc + M.map_config.scaled_tile_height
   end
-  love.graphics.setCanvas()
+  love.graphics.setCanvas(nil)
 end
 
 -- Renders the game map to the screen
