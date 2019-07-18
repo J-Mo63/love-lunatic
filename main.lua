@@ -2,6 +2,7 @@
 local system = require("scripts.system")
 local player = require("scripts.player")
 local map = require("scripts.map")
+local map_loader = require("scripts.map_loader")
 
 function love.load()
   -- Set the window title
@@ -9,6 +10,7 @@ function love.load()
   -- Initialise modules for use
   player.init()
   map.init()
+  map_loader.init("main", map)
 end
 
 function love.update(dt)
