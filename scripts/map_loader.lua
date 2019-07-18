@@ -1,3 +1,4 @@
+-- A module for loading the map from a file in the maps folder
 local M = {}
 
 -- Module Fields
@@ -6,9 +7,12 @@ M.map_config = nil
 M.tiles = nil
 
 function M.init(filename, load_module)
+    -- Set the fields
     M.load_module = load_module
     M.map_config = M.load_module.map_config
     M.tiles = M.load_module.tiles
+
+    -- Start loading the map file
     require("maps." .. filename)
 end
 
@@ -19,6 +23,7 @@ function load_map(map)
       map[i][j][M.map_config.LAYER_2_KEY] = M.tiles[tile[M.map_config.LAYER_2_KEY]]
     end
   end
+  -- Perform a callback to return the map
   M.load_module.update_map(map)
 end
 

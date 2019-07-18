@@ -1,4 +1,4 @@
--- A module for map related methods and variables
+-- A module for map editing related methods and variables
 local M = {}
 
 -- Module fields
