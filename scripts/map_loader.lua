@@ -16,6 +16,7 @@ function M.init(filename, load_module)
     require("maps." .. filename)
 end
 
+-- Loads the map in and calls a function to return it to the parent module
 function load_map(map)
   for i, row in ipairs(map) do
     for j, tile in ipairs(row) do

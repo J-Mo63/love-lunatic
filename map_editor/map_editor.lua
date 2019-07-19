@@ -37,6 +37,7 @@ function M.init()
   menu_tile_col_max = math.floor((love.graphics.getHeight()-MENU_Y) / menu_tile_height)
 end
 
+-- Saves the map to a file in app data
 function save_map()
   -- Construct map data in the recall format
   local save_data = "load_map {"
@@ -74,6 +75,7 @@ function save_map()
   love.filesystem.write("edit_map.lua", save_data)
 end
 
+-- Updates the module map externally
 function M.update_map(map)
   M.game_map = map
 end

@@ -11,6 +11,7 @@ function M.update(dt)
   end
 end
 
+-- Renders UI to the screen
 function M.render()
   love.graphics.print(to_console, 5, 2)
 end

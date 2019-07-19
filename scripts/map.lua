@@ -76,6 +76,7 @@ function M.init()
   M.update_map(load_map())
 end
 
+-- Updates the module map externally and redraws the canvas
 function M.update_map(game_map)
   -- Update the stored game map
   M.game_map = game_map
@@ -84,6 +85,7 @@ function M.update_map(game_map)
   update_canvas()
 end
 
+-- Updates the canvas with a new map
 function update_canvas()
   love.graphics.setCanvas(map_canvas)
   love.graphics.clear()
