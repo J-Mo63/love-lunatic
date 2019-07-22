@@ -43,6 +43,11 @@ function M.update_movement(dt)
     M.transform.x = M.transform.x + (temp_x / magnitude) * PLAYER_SPEED
     M.transform.y = M.transform.y + (temp_y / magnitude) * PLAYER_SPEED
   end
+
+  if M.check_collision(10, 10, 10, 10) then
+    to_console = "collided!"
+  else
+    to_console = "no collided"
   end
 end
 
@@ -50,6 +55,13 @@ end
 function M.render()
   love.graphics.print("-_-", M.transform.x, M.transform.y)
 end
+
+--
+function M.check_collision(x,y,w,h)
+  return M.transform.x < x + w and
+         x < M.transform.x + M.transform.w and
+         M.transform.y < y + h and
+         y < M.transform.y + M.transform.h
 end
  
 return M
