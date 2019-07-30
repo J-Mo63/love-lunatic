@@ -2,9 +2,9 @@
 local M = {}
 
 -- Module fields
-local PLAYER_SPEED = 4
-local PLAYER_SCALE = 1.3
-local ANIMAION_SPEED = 20
+local PLAYER_SPEED = 2
+local PLAYER_SCALE = 1.4
+local ANIMAION_SPEED = 10
 
 -- The player location
 M.transform = {
