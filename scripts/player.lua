@@ -14,7 +14,10 @@ M.transform = {
 }
 
 -- The player sprites
-local sprites = {}
+local sprites = {
+  idle = {},
+  walking = {},
+}
 
 -- Initialises the player module for use
 function M.init()
@@ -22,9 +25,9 @@ function M.init()
   M.transform.x = love.graphics.getWidth()/2
   M.transform.y = love.graphics.getHeight()/2
 
-  sprites.centre = love.graphics.newImage("assets/char/player-centre.png")
-  sprites.left = love.graphics.newImage("assets/char/player-left.png")
-  sprites.right = love.graphics.newImage("assets/char/player-right.png")
+  table.insert(sprites.idle, love.graphics.newImage("assets/char/player-centre.png"))
+  table.insert(sprites.walking, love.graphics.newImage("assets/char/player-left.png"))
+  table.insert(sprites.walking, love.graphics.newImage("assets/char/player-right.png"))
 end
 
 -- Updates the player and input state
