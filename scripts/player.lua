@@ -29,11 +29,11 @@ function M.init()
   M.transform.x = love.graphics.getWidth()/2
   M.transform.y = love.graphics.getHeight()/2
 
-  table.insert(sprites.idle, love.graphics.newImage("assets/char/player-centre.png"))
-  table.insert(sprites.walking, love.graphics.newImage("assets/char/player-left.png"))
-  table.insert(sprites.walking, love.graphics.newImage("assets/char/player-centre.png"))
-  table.insert(sprites.walking, love.graphics.newImage("assets/char/player-right.png"))
-  table.insert(sprites.walking, love.graphics.newImage("assets/char/player-centre.png"))
+  table.insert(sprites.idle, love.graphics.newImage("assets/char/player-idle-down.png"))
+  table.insert(sprites.walking, love.graphics.newImage("assets/char/player-walking-down-1.png"))
+  table.insert(sprites.walking, love.graphics.newImage("assets/char/player-idle-down.png"))
+  table.insert(sprites.walking, love.graphics.newImage("assets/char/player-walking-down-2.png"))
+  table.insert(sprites.walking, love.graphics.newImage("assets/char/player-idle-down.png"))
 
   current_animation = sprites.idle
 end
