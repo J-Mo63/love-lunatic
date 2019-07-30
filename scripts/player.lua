@@ -3,6 +3,7 @@ local M = {}
 
 -- Module fields
 local PLAYER_SPEED = 4
+local PLAYER_SCALE = 1.3
 
 -- The player location
 M.transform = {
@@ -60,7 +61,7 @@ end
 
 -- Renders the player sprite to the screen
 function M.render()
-  love.graphics.print("-_-", M.transform.x, M.transform.y)
+  love.graphics.draw(sprites.centre, M.transform.x, M.transform.y, 0, PLAYER_SCALE)
 end
 
 --
