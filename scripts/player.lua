@@ -30,7 +30,10 @@ function M.init()
 
   table.insert(sprites.idle, love.graphics.newImage("assets/char/player-centre.png"))
   table.insert(sprites.walking, love.graphics.newImage("assets/char/player-left.png"))
+  table.insert(sprites.walking, love.graphics.newImage("assets/char/player-centre.png"))
   table.insert(sprites.walking, love.graphics.newImage("assets/char/player-right.png"))
+  table.insert(sprites.walking, love.graphics.newImage("assets/char/player-centre.png"))
+
 end
 
 -- Updates the player and input state
