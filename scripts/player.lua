@@ -29,13 +29,47 @@ function M.init()
   M.transform.x = love.graphics.getWidth()/2
   M.transform.y = love.graphics.getHeight()/2
 
-  table.insert(sprites.idle, love.graphics.newImage("assets/char/player-idle-down.png"))
-  table.insert(sprites.walking, love.graphics.newImage("assets/char/player-walking-down-1.png"))
-  table.insert(sprites.walking, love.graphics.newImage("assets/char/player-idle-down.png"))
-  table.insert(sprites.walking, love.graphics.newImage("assets/char/player-walking-down-2.png"))
-  table.insert(sprites.walking, love.graphics.newImage("assets/char/player-idle-down.png"))
+  -- Import walking down animation
+  table.insert(sprites.walking_down, 
+    love.graphics.newImage("assets/char/player-idle-down.png"))
+  table.insert(sprites.walking_down, 
+    love.graphics.newImage("assets/char/player-walking-down-1.png"))
+  table.insert(sprites.walking_down, 
+    love.graphics.newImage("assets/char/player-idle-down.png"))
+  table.insert(sprites.walking_down, 
+    love.graphics.newImage("assets/char/player-walking-down-2.png"))
 
   current_animation = sprites.idle
+  -- Import walking up animation
+  table.insert(sprites.walking_up, 
+    love.graphics.newImage("assets/char/player-idle-up.png"))
+  table.insert(sprites.walking_up, 
+    love.graphics.newImage("assets/char/player-walking-up-1.png"))
+  table.insert(sprites.walking_up, 
+    love.graphics.newImage("assets/char/player-idle-up.png"))
+  table.insert(sprites.walking_up, 
+    love.graphics.newImage("assets/char/player-walking-up-2.png"))
+
+  -- Import walking right animation
+  table.insert(sprites.walking_right, 
+    love.graphics.newImage("assets/char/player-idle-right.png"))
+  table.insert(sprites.walking_right, 
+    love.graphics.newImage("assets/char/player-walking-right-1.png"))
+  table.insert(sprites.walking_right, 
+    love.graphics.newImage("assets/char/player-idle-right.png"))
+  table.insert(sprites.walking_right, 
+    love.graphics.newImage("assets/char/player-walking-right-2.png"))
+
+  -- Import walking left animation
+  table.insert(sprites.walking_left, 
+    love.graphics.newImage("assets/char/player-idle-left.png"))
+  table.insert(sprites.walking_left, 
+    love.graphics.newImage("assets/char/player-walking-left-1.png"))
+  table.insert(sprites.walking_left, 
+    love.graphics.newImage("assets/char/player-idle-left.png"))
+  table.insert(sprites.walking_left, 
+    love.graphics.newImage("assets/char/player-walking-left-2.png"))
+
 end
 
 -- Updates the player and input state
