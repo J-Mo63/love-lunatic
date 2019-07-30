@@ -105,11 +105,11 @@ function M.update_movement(dt)
     M.transform.y = M.transform.y + (temp_y / magnitude) * PLAYER_SPEED
   end
 
-  -- Set the appropriate animation cycle
+  -- Set the player as idle
   if temp_x + temp_y == 0 then
-    current_animation = sprites.idle
+    is_idle = true
   else
-    current_animation = sprites.walking
+    is_idle = false
   end
 
   -- if M.check_collision(10, 10, 10, 10) then
@@ -128,10 +128,18 @@ end
 
 -- Renders the player sprite to the screen
 function M.render()
-  love.graphics.draw(current_animation[math.fmod(current_frame, table.getn(current_animation)) + 1], M.transform.x, M.transform.y, 0, PLAYER_SCALE)
+  -- Check whether the player is idle
+  local frame_num = 1
+  if not is_idle then
+    -- Get the current frame for the animation
+    frame_num = math.fmod(current_frame, table.getn(current_animation)) + 1
+  end
+
+  -- Draw the current player sprite animation to the screen
+  love.graphics.draw(current_animation[frame_num], M.transform.x, M.transform.y, 0, PLAYER_SCALE)
 end
 
---
+-- A method to check whether the player is colliding with a set of coordinates
 function M.check_collision(x,y,w,h)
   return M.transform.x < x + w and
          x < M.transform.x + M.transform.w and
