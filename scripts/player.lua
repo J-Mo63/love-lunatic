@@ -16,9 +16,12 @@ M.transform = {
 
 -- The player sprites
 local sprites = {
-  idle = {},
-  walking = {},
+  walking_down = {},
+  walking_up = {},
+  walking_right = {},
+  walking_left = {},
 }
+local is_idle = true
 local current_animation = nil
 local current_frame = 0
 local frame_tick = 0
@@ -39,7 +42,6 @@ function M.init()
   table.insert(sprites.walking_down, 
     love.graphics.newImage("assets/char/player-walking-down-2.png"))
 
-  current_animation = sprites.idle
   -- Import walking up animation
   table.insert(sprites.walking_up, 
     love.graphics.newImage("assets/char/player-idle-up.png"))
@@ -70,6 +72,8 @@ function M.init()
   table.insert(sprites.walking_left, 
     love.graphics.newImage("assets/char/player-walking-left-2.png"))
 
+  -- Set the default animation
+  current_animation = sprites.walking_down
 end
 
 -- Updates the player and input state
