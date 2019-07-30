@@ -83,15 +83,19 @@ function M.update_movement(dt)
   local temp_y = 0
   if love.keyboard.isDown("right") then
     temp_x = (dt * 100)
+    current_animation = sprites.walking_right
   end
   if love.keyboard.isDown("left") then
     temp_x = -(dt * 100)
+    current_animation = sprites.walking_left
   end
   if love.keyboard.isDown("down") then
     temp_y = (dt * 100)
+    current_animation = sprites.walking_down
   end
   if love.keyboard.isDown("up") then
     temp_y = -(dt * 100)
+    current_animation = sprites.walking_up
   end
 
   -- Normalise movement
