@@ -4,6 +4,7 @@ local M = {}
 -- Module fields
 local PLAYER_SPEED = 4
 local PLAYER_SCALE = 1.3
+local ANIMAION_SPEED = 20
 
 -- The player location
 M.transform = {
@@ -18,6 +19,8 @@ local sprites = {
   idle = {},
   walking = {},
 }
+local current_frame = 0
+local frame_tick = 0
 
 -- Initialises the player module for use
 function M.init()
@@ -59,12 +62,18 @@ function M.update_movement(dt)
     to_console = "collided!"
   else
     to_console = "no collided"
+
+  -- Calculate the current frame tick
+  if frame_tick >= ANIMAION_SPEED then
+    current_frame = current_frame + 1
+    frame_tick = 0
   end
+  frame_tick = frame_tick + 1
 end
 
 -- Renders the player sprite to the screen
 function M.render()
-  love.graphics.draw(sprites.centre, M.transform.x, M.transform.y, 0, PLAYER_SCALE)
+  love.graphics.draw(sprites.walking[math.fmod(current_frame, table.getn(sprites.walking)) + 1], M.transform.x, M.transform.y, 0, PLAYER_SCALE)
 end
 
 --
