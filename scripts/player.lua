@@ -63,10 +63,18 @@ function M.update_movement(dt)
     M.transform.y = M.transform.y + (temp_y / magnitude) * PLAYER_SPEED
   end
 
-  if M.check_collision(10, 10, 10, 10) then
-    to_console = "collided!"
+  -- Set the appropriate animation cycle
+  if temp_x + temp_y == 0 then
+    current_animation = sprites.idle
   else
-    to_console = "no collided"
+    current_animation = sprites.walking
+  end
+
+  -- if M.check_collision(10, 10, 10, 10) then
+  --   to_console = "collided!"
+  -- else
+  --   to_console = "no collided"
+  -- end
 
   -- Calculate the current frame tick
   if frame_tick >= ANIMAION_SPEED then
