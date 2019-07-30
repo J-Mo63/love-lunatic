@@ -19,6 +19,7 @@ local sprites = {
   idle = {},
   walking = {},
 }
+local current_animation = nil
 local current_frame = 0
 local frame_tick = 0
 
@@ -34,6 +35,7 @@ function M.init()
   table.insert(sprites.walking, love.graphics.newImage("assets/char/player-right.png"))
   table.insert(sprites.walking, love.graphics.newImage("assets/char/player-centre.png"))
 
+  current_animation = sprites.idle
 end
 
 -- Updates the player and input state
@@ -76,7 +78,7 @@ end
 
 -- Renders the player sprite to the screen
 function M.render()
-  love.graphics.draw(sprites.walking[math.fmod(current_frame, table.getn(sprites.walking)) + 1], M.transform.x, M.transform.y, 0, PLAYER_SCALE)
+  love.graphics.draw(current_animation[math.fmod(current_frame, table.getn(current_animation)) + 1], M.transform.x, M.transform.y, 0, PLAYER_SCALE)
 end
 
 --
