@@ -11,13 +11,13 @@ function love.load()
   player.init()
   map.init()
   map_loader.init("main", map)
+  player.collidable_objects = map.get_collidable_objects()
 end
 
 function love.update(dt)
   -- Register game updates
   system.update()
   player.update_movement(dt)
-  player.collidable_objects = map.get_collidable_objects()
 end
 
 function love.draw()
