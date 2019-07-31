@@ -94,7 +94,7 @@ function M.init()
   M.map_config.scaled_tile_height = tileset_height * M.map_config.tile_scale / M.map_config.TILE_DENSITY
   M.map_config.map_tile_scale = M.map_config.tile_scale / M.map_config.TILE_DENSITY
 
-  -- Calculate the M.map_config.letterboxing offset
+  -- Calculate the letterboxing offset
   M.map_config.letterboxing = (screen_width - screen_height)/2
 
   -- Initialse the map canvas
