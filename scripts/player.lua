@@ -14,6 +14,8 @@ M.transform = {
   w = 20,
 }
 
+M.collidable_objects = {}
+
 -- The player sprites
 local sprites = {
   walking_down = {},
