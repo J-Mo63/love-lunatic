@@ -49,6 +49,34 @@ local function load_map()
   return new_map
 end
 
+-- Returns a list of collidable items
+function M.get_collidable_objects()
+  local collidable_objects = {}
+  local y_loc = 0
+  for i = 1, M.map_config.TILE_DENSITY do
+    local x_loc = 0
+    for j = 1, M.map_config.TILE_DENSITY do
+      -- Check if the boundary tile exists in the map
+      local boundary_tile = M.game_map[i][j][M.map_config.LAYER_2_KEY] or M.tiles.transparent
+
+      if boundary_tile ~= M.tiles.transparent then
+        -- Add it to the boundary table
+        table.insert(collidable_objects, 
+          {x_loc + M.map_config.letterboxing, 
+           y_loc,
+           M.map_config.scaled_tile_height})
+      end
+
+      -- Increment the x location of the tile
+      x_loc = x_loc + M.map_config.scaled_tile_height
+    end
+    -- Increment the y location of the tile
+    y_loc = y_loc + M.map_config.scaled_tile_height
+  end
+
+  return collidable_objects
+end
+
 -- Initialises the map module for use
 function M.init()
   -- Load the tiles
