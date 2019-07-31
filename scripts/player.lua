@@ -114,11 +114,19 @@ function M.update_movement(dt)
     is_idle = false
   end
 
-  -- if M.check_collision(10, 10, 10, 10) then
-  --   to_console = "collided!"
-  -- else
-  --   to_console = "no collided"
-  -- end
+  -- Check if the player collided with any collidable objects
+  local collided = false
+  for i, v in ipairs(M.collidable_objects) do
+    if M.check_collision(v[1], v[2], v[3], v[3]) then
+      collided = true
+    end
+  end
+
+  if collided then
+    to_console = "collided!"
+  else
+    to_console = "no collided"
+  end
 
   -- Calculate the current frame tick
   if frame_tick >= ANIMAION_SPEED then
