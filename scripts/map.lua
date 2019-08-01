@@ -62,9 +62,8 @@ function M.get_collidable_objects()
       if boundary_tile ~= M.tiles.transparent then
         -- Add it to the boundary table
         table.insert(collidable_objects, 
-          {x_loc + M.map_config.letterboxing, 
-           y_loc,
-           M.map_config.scaled_tile_height})
+          {x_loc + M.map_config.letterboxing, y_loc,
+           M.map_config.scaled_tile_height, M.map_config.scaled_tile_height})
       end
 
       -- Increment the x location of the tile

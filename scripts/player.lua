@@ -117,7 +117,7 @@ function M.update_movement(dt)
   -- Check if the player collided with any collidable objects
   local collided = false
   for i, v in ipairs(M.collidable_objects) do
-    if M.check_collision(v[1], v[2], v[3], v[3]) then
+    if M.check_collision(v[1], v[2], v[3], v[4]) then
       collided = true
     end
   end
