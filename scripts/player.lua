@@ -117,7 +117,7 @@ function M.update_movement(dt)
   -- Check if the player collided with any collidable objects
   local collided = false
   for i, v in ipairs(M.collidable_objects) do
-    if M.check_collision(v[1], v[2], v[3], v[4]) then
+    if M.check_collision(v) then
       collided = true
     end
   end
@@ -150,11 +150,11 @@ function M.render()
 end
 
 -- A method to check whether the player is colliding with a set of coordinates
-function M.check_collision(x,y,w,h)
-  return M.transform.x < x + w and
-         x < M.transform.x + M.transform.w and
-         M.transform.y < y + h and
-         y < M.transform.y + M.transform.h
+function M.check_collision(object)
+  return M.transform.x < object[1] + object[3] and
+         object[1] < M.transform.x + M.transform.w and
+         M.transform.y < object[2] + object[4] and
+         object[2] < M.transform.y + M.transform.h
 end
  
 return M
