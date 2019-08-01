@@ -58,20 +58,29 @@ function M.get_collidable_objects()
     for j = 1, M.map_config.TILE_DENSITY do
       -- Check if the boundary tile exists in the map
       local boundary_tile = M.game_map[i][j][M.map_config.LAYER_2_KEY] or M.tiles.transparent
-
       if boundary_tile ~= M.tiles.transparent then
         -- Add it to the boundary table
         table.insert(collidable_objects, 
           {x_loc + M.map_config.letterboxing, y_loc,
            M.map_config.scaled_tile_height, M.map_config.scaled_tile_height})
       end
-
       -- Increment the x location of the tile
       x_loc = x_loc + M.map_config.scaled_tile_height
     end
     -- Increment the y location of the tile
     y_loc = y_loc + M.map_config.scaled_tile_height
   end
+
+  -- Add game screen borders to collidable objects
+  table.insert(collidable_objects, 
+    {0, 0, M.map_config.letterboxing, love.graphics.getHeight()})
+  table.insert(collidable_objects, 
+    {M.map_config.letterboxing, -1, love.graphics.getWidth(), 10})
+  table.insert(collidable_objects, 
+    {love.graphics.getWidth() - M.map_config.letterboxing, 0, 
+     M.map_config.letterboxing, love.graphics.getHeight()})
+  table.insert(collidable_objects, 
+    {0, love.graphics.getHeight() + 1, love.graphics.getWidth(), 10})
 
   return collidable_objects
 end
