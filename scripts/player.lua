@@ -1,7 +1,7 @@
 -- A module for player and player controller related methods and variables
 local M = {}
 
--- Module fields
+-- Module constants
 local PLAYER_SPEED = 2
 local PLAYER_SCALE = 1.4
 local ANIMAION_SPEED = 10
@@ -10,10 +10,11 @@ local ANIMAION_SPEED = 10
 M.transform = {
   x = 0,
   y = 0,
-  h = 20,
   w = 20,
+  h = 20,
 }
 
+-- A list of collidable object transforms in the map
 M.collidable_objects = {}
 
 -- The player sprites
@@ -23,6 +24,8 @@ local sprites = {
   walking_right = {},
   walking_left = {},
 }
+
+-- Other module fields
 local is_idle = true
 local current_animation = nil
 local current_frame = 0
@@ -100,7 +103,7 @@ function M.update_movement(dt)
     current_animation = sprites.walking_up
   end
 
-  -- Normalise movement
+  -- Normalise player's movement
   local magnitude = math.sqrt(temp_x^2 + temp_y^2)
   if magnitude > 1 then
     M.transform.x = M.transform.x + (temp_x / magnitude) * PLAYER_SPEED
