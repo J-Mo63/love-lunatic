@@ -8,10 +8,8 @@ local ANIMAION_SPEED = 10
 
 -- The player location
 M.transform = {
-  x = 0,
-  y = 0,
-  w = 20,
-  h = 20,
+  x, y,
+  w, h,
 }
 
 -- A list of collidable object transforms in the map
@@ -33,10 +31,6 @@ local frame_tick = 0
 
 -- Initialises the player module for use
 function M.init()
-  -- Set player starting location
-  M.transform.x = love.graphics.getWidth()/2
-  M.transform.y = love.graphics.getHeight()/2
-
   -- Import walking down animation
   table.insert(sprites.walking_down, 
     love.graphics.newImage("assets/char/player-idle-down.png"))
@@ -79,6 +73,12 @@ function M.init()
 
   -- Set the default animation
   current_animation = sprites.walking_down
+
+  -- Set player starting location and size
+  M.transform.x = love.graphics.getWidth()/2
+  M.transform.y = love.graphics.getHeight()/2
+  M.transform.w = current_animation[1]:getWidth() * PLAYER_SCALE
+  M.transform.h = M.transform.w
 end
 
 -- Updates the player and input state
