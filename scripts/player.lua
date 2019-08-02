@@ -106,8 +106,22 @@ function M.update_movement(dt)
   -- Normalise player's movement
   local magnitude = math.sqrt(temp_x^2 + temp_y^2)
   if magnitude > 1 then
-    M.transform.x = M.transform.x + (temp_x / magnitude) * PLAYER_SPEED
-    M.transform.y = M.transform.y + (temp_y / magnitude) * PLAYER_SPEED
+    temp_x = M.transform.x + (temp_x / magnitude) * PLAYER_SPEED
+    temp_y = M.transform.y + (temp_y / magnitude) * PLAYER_SPEED
+
+    -- Check if the player collided with any collidable objects
+    local collided = false
+    for i, v in ipairs(M.collidable_objects) do
+      if M.check_collision(v, temp_x, temp_y) then
+        collided = true
+      end
+    end
+
+    -- Set the movements to the transform if it didn't collide
+    if not collided then
+      M.transform.x = temp_x
+      M.transform.y = temp_y
+    end
   end
 
   -- Set the player as idle
@@ -115,20 +129,6 @@ function M.update_movement(dt)
     is_idle = true
   else
     is_idle = false
-  end
-
-  -- Check if the player collided with any collidable objects
-  local collided = false
-  for i, v in ipairs(M.collidable_objects) do
-    if M.check_collision(v) then
-      collided = true
-    end
-  end
-
-  if collided then
-    to_console = "collided!"
-  else
-    to_console = "no collided"
   end
 
   -- Calculate the current frame tick
