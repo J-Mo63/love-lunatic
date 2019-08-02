@@ -122,13 +122,10 @@ function M.update_movement(dt)
       M.transform.x = temp_x
       M.transform.y = temp_y
     end
-  end
-
-  -- Set the player as idle
-  if temp_x + temp_y == 0 then
-    is_idle = true
-  else
     is_idle = false
+  else
+    -- Set the player as idle
+    is_idle = true
   end
 
   -- Calculate the current frame tick
