@@ -17,7 +17,7 @@ end
 function love.update(dt)
   -- Register game updates
   system.update()
-  player.update_movement(dt)
+  player.update(dt)
 end
 
 function love.draw()

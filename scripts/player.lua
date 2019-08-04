@@ -82,7 +82,7 @@ function M.init()
 end
 
 -- Updates the player and input state
-function M.update_movement(dt)
+function M.update(dt)
   -- Get movement profiles for input
   local temp_x = 0
   local temp_y = 0
