@@ -14,6 +14,10 @@ function M.update(dt)
       love.event.quit()
     end
     
+    -- Make the application display FPS on command + f
+    if love.keyboard.isDown("d") then
+      debug_mode = true
+    end
   end
 
   -- Check if FPS should be displayed
