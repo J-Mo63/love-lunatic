@@ -147,6 +147,13 @@ function M.render()
 
   -- Draw the current player sprite animation to the screen
   love.graphics.draw(current_animation[frame_num], M.transform.x, M.transform.y, 0, PLAYER_SCALE)
+
+  -- Draw player hitbox to the screen
+  if debug_mode then
+    love.graphics.setColor(255,0,0)
+    love.graphics.rectangle("line", M.transform.x, M.transform.y, M.transform.w, M.transform.h)
+    love.graphics.setColor(255,255,255)
+  end
 end
 
 -- A method to check whether the player is colliding with a set of coordinates
