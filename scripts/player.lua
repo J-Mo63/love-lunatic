@@ -110,10 +110,21 @@ function M.update(dt)
     temp_y = M.transform.y + (temp_y / magnitude) * PLAYER_SPEED
 
     -- Check if the player collided with any collidable objects
-    local collided = M.map_collided(temp_x, temp_y)
+    local collided_xy = M.map_collided(temp_x, temp_y)
 
-    -- Set the movements to the transform if it didn't collide
-    if not collided then
+    if collided_xy then
+      local collided_x = M.map_collided(temp_x, M.transform.y)
+
+      if collided_x then
+        local collided_y = M.map_collided(M.transform.x, temp_y)
+        if not collided_y then
+          M.transform.y = temp_y
+        end
+      else
+        M.transform.x = temp_x
+      end
+    else
+      -- Set the movements to the transform if it didn't collide
       M.transform.x = temp_x
       M.transform.y = temp_y
     end
