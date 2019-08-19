@@ -110,12 +110,7 @@ function M.update(dt)
     temp_y = M.transform.y + (temp_y / magnitude) * PLAYER_SPEED
 
     -- Check if the player collided with any collidable objects
-    local collided = false
-    for i, v in ipairs(M.collidable_objects) do
-      if M.check_collision(v, temp_x, temp_y) then
-        collided = true
-      end
-    end
+    local collided = M.map_collided(temp_x, temp_y)
 
     -- Set the movements to the transform if it didn't collide
     if not collided then
@@ -154,6 +149,16 @@ function M.render()
     love.graphics.rectangle("line", M.transform.x, M.transform.y, M.transform.w, M.transform.h)
     love.graphics.setColor(255,255,255)
   end
+end
+
+function M.map_collided(temp_x, temp_y)
+  -- Check if the player collided with any collidable objects
+  for i, v in ipairs(M.collidable_objects) do
+    if M.object_collided(v, temp_x, temp_y) then
+      return true
+    end
+  end
+  return false
 end
 
 -- A method to check whether the player is colliding with a set of coordinates
