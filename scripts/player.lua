@@ -157,7 +157,7 @@ function M.render()
 end
 
 -- A method to check whether the player is colliding with a set of coordinates
-function M.check_collision(object, temp_x, temp_y)
+function M.object_collided(object, temp_x, temp_y)
   return temp_x < object[1] + object[3] and
          object[1] < temp_x + M.transform.w and
          temp_y < object[2] + object[4] and
