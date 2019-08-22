@@ -5,6 +5,7 @@ local M = {}
 local PLAYER_SPEED = 2
 local PLAYER_SCALE = 1.4
 local ANIMAION_SPEED = 10
+local INTERACTION_OFFSET = 5
 
 -- The player location
 M.transform = {
@@ -14,6 +15,7 @@ M.transform = {
 
 -- A list of collidable object transforms in the map
 M.collidable_objects = {}
+M.tagged_objects = {}
 
 -- The player sprites
 local sprites = {
@@ -28,6 +30,7 @@ local is_idle = true
 local current_animation = nil
 local current_frame = 0
 local frame_tick = 0
+local interactable = false
 
 -- Initialises the player module for use
 function M.init()
@@ -134,6 +137,13 @@ function M.update(dt)
     is_idle = true
   end
 
+  local collided_tag = M.tags_collided(M.transform.x, M.transform.y)
+  if collided_tag then
+    interactable = true
+  else
+    interactable = false
+  end
+
   -- Calculate the current frame tick
   if frame_tick >= ANIMAION_SPEED then
     current_frame = current_frame + 1
@@ -162,6 +172,16 @@ function M.render()
   end
 end
 
+function M.tags_collided(x, y)
+  -- Check if the player collided with any tagged objects
+  for i, v in ipairs(M.tagged_objects) do
+    if M.tag_collided(v, x, y) then
+      return true
+    end
+  end
+  return false
+end
+
 function M.map_collided(temp_x, temp_y)
   -- Check if the player collided with any collidable objects
   for i, v in ipairs(M.collidable_objects) do
@@ -170,6 +190,13 @@ function M.map_collided(temp_x, temp_y)
     end
   end
   return false
+end
+
+function M.tag_collided(object, x, y)
+  return x - INTERACTION_OFFSET < object[1] + object[3] and
+         object[1] < x + INTERACTION_OFFSET + M.transform.w and
+         y - INTERACTION_OFFSET < object[2] + object[4] and
+         object[2] < y + INTERACTION_OFFSET + M.transform.h
 end
 
 -- A method to check whether the player is colliding with a set of coordinates
