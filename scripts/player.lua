@@ -163,6 +163,12 @@ function M.render()
 
   -- Draw the current player sprite animation to the screen
   love.graphics.draw(current_animation[frame_num], M.transform.x, M.transform.y, 0, PLAYER_SCALE)
+  if interactable then
+    local text = "Press f"
+    local font = love.graphics.getFont()
+    local width = M.transform.x - (font:getWidth(text) / 2) + M.transform.w / 2
+    love.graphics.print(text, width, M.transform.y + M.transform.h + 10)
+  end
 
   -- Draw player hitbox to the screen
   if debug_mode then
