@@ -85,6 +85,30 @@ function M.get_collidable_objects()
   return collidable_objects
 end
 
+function M.get_tagged_objects()
+  local tagged_objects = {}
+  local y_loc = 0
+  for i = 1, M.map_config.TILE_DENSITY do
+    local x_loc = 0
+    for j = 1, M.map_config.TILE_DENSITY do
+      -- Check if the tagged tile exists in the map
+      local tagged_tile = M.game_map[i][j][M.map_config.TAG_KEY] or M.tiles.transparent
+      if tagged_tile ~= M.tiles.transparent and tagged_tile ~= "" then
+        -- Add it to the boundary table
+        table.insert(tagged_objects, 
+          {x_loc + M.map_config.letterboxing, y_loc,
+           M.map_config.scaled_tile_height, M.map_config.scaled_tile_height})
+      end
+      -- Increment the x location of the tile
+      x_loc = x_loc + M.map_config.scaled_tile_height
+    end
+    -- Increment the y location of the tile
+    y_loc = y_loc + M.map_config.scaled_tile_height
+  end
+
+  return tagged_objects
+end
+
 -- Initialises the map module for use
 function M.init()
   -- Load the tiles
