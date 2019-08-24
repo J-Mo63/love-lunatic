@@ -205,12 +205,12 @@ function M.tag_collided(object, x, y)
          object[2] < y + INTERACTION_OFFSET + M.transform.h
 end
 
--- A method to check whether the player is colliding with a set of coordinates
 function M.object_collided(object, temp_x, temp_y)
   return temp_x < object[1] + object[3] and
          object[1] < temp_x + M.transform.w and
          temp_y < object[2] + object[4] and
          object[2] < temp_y + M.transform.h
+-- A method to check whether two objects collide
 end
  
 return M

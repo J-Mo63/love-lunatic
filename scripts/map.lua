@@ -49,7 +49,7 @@ local function load_map()
   return new_map
 end
 
--- Returns a list of collidable items
+-- Returns a list of collidable objects
 function M.get_collidable_objects()
   local collidable_objects = {}
   local y_loc = 0
@@ -85,6 +85,7 @@ function M.get_collidable_objects()
   return collidable_objects
 end
 
+-- Returns a list of tagged objects
 function M.get_tagged_objects()
   local tagged_objects = {}
   local y_loc = 0
@@ -94,7 +95,7 @@ function M.get_tagged_objects()
       -- Check if the tagged tile exists in the map
       local tagged_tile = M.game_map[i][j][M.map_config.TAG_KEY] or M.tiles.transparent
       if tagged_tile ~= M.tiles.transparent and tagged_tile ~= "" then
-        -- Add it to the boundary table
+        -- Add it to the tagged table
         table.insert(tagged_objects, 
           {x_loc + M.map_config.letterboxing, y_loc,
            M.map_config.scaled_tile_height, M.map_config.scaled_tile_height})
