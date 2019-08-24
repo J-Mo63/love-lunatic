@@ -30,7 +30,7 @@ local is_idle = true
 local current_animation = nil
 local current_frame = 0
 local frame_tick = 0
-local interactable = false
+local actionable = false
 
 -- Initialises the player module for use
 function M.init()
@@ -113,14 +113,13 @@ function M.update(dt)
     temp_y = M.transform.y + (temp_y / magnitude) * PLAYER_SPEED
 
     -- Check if the player collided with any collidable objects
-    local collided_xy = M.map_collided(temp_x, temp_y)
-
-    if collided_xy then
-      local collided_x = M.map_collided(temp_x, M.transform.y)
-
-      if collided_x then
-        local collided_y = M.map_collided(M.transform.x, temp_y)
-        if not collided_y then
+    local player_object = {temp_x, temp_y, M.transform.w, M.transform.h}
+    if M.items_collided(player_object, M.collidable_objects) then
+      -- Check if either x or y was would work on their own
+      player_object = {temp_x, M.transform.y, M.transform.w, M.transform.h}
+      if M.items_collided(player_object, M.collidable_objects) then
+        player_object = {M.transform.x, temp_y, M.transform.w, M.transform.h}
+        if not M.items_collided(player_object, M.collidable_objects) then
           M.transform.y = temp_y
         end
       else
@@ -137,12 +136,13 @@ function M.update(dt)
     is_idle = true
   end
 
-  local collided_tag = M.tags_collided(M.transform.x, M.transform.y)
-  if collided_tag then
-    interactable = true
-  else
-    interactable = false
-  end
+  -- Check if the player collided with any tagged objects
+  actionable = M.items_collided(
+                  {M.transform.x - INTERACTION_OFFSET, 
+                   M.transform.y - INTERACTION_OFFSET, 
+                   M.transform.w + INTERACTION_OFFSET*2, 
+                   M.transform.h + INTERACTION_OFFSET*2}, 
+                   M.tagged_objects)
 
   -- Calculate the current frame tick
   if frame_tick >= ANIMAION_SPEED then
@@ -163,7 +163,7 @@ function M.render()
 
   -- Draw the current player sprite animation to the screen
   love.graphics.draw(current_animation[frame_num], M.transform.x, M.transform.y, 0, PLAYER_SCALE)
-  if interactable then
+  if actionable then
     local text = "Press f"
     local font = love.graphics.getFont()
     local width = M.transform.x - (font:getWidth(text) / 2) + M.transform.w / 2
@@ -178,39 +178,23 @@ function M.render()
   end
 end
 
-function M.tags_collided(x, y)
-  -- Check if the player collided with any tagged objects
-  for i, v in ipairs(M.tagged_objects) do
-    if M.tag_collided(v, x, y) then
+-- A method to check if the player collides with any of a set of items
+function M.items_collided(player, items)
+  -- Check if the player collided with any items
+  for i, item in ipairs(items) do
+    if M.collided(player, item) then
       return true
     end
   end
   return false
 end
 
-function M.map_collided(temp_x, temp_y)
-  -- Check if the player collided with any collidable objects
-  for i, v in ipairs(M.collidable_objects) do
-    if M.object_collided(v, temp_x, temp_y) then
-      return true
-    end
-  end
-  return false
-end
-
-function M.tag_collided(object, x, y)
-  return x - INTERACTION_OFFSET < object[1] + object[3] and
-         object[1] < x + INTERACTION_OFFSET + M.transform.w and
-         y - INTERACTION_OFFSET < object[2] + object[4] and
-         object[2] < y + INTERACTION_OFFSET + M.transform.h
-end
-
-function M.object_collided(object, temp_x, temp_y)
-  return temp_x < object[1] + object[3] and
-         object[1] < temp_x + M.transform.w and
-         temp_y < object[2] + object[4] and
-         object[2] < temp_y + M.transform.h
 -- A method to check whether two objects collide
+function M.collided(object_a, object_b)
+  return object_a[1] < object_b[1] + object_b[3] and
+         object_b[1] < object_a[1] + object_a[3] and
+         object_a[2] < object_b[2] + object_b[4] and
+         object_b[2] < object_a[2] + object_a[4]
 end
  
 return M
