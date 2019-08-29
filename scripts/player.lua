@@ -17,6 +17,8 @@ M.transform = {
 M.collidable_objects = {}
 M.tagged_objects = {}
 
+M.action_module = nil
+
 -- The player sprites
 local sprites = {
   walking_down = {},

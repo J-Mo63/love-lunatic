@@ -14,6 +14,7 @@ function love.load()
   map_loader.init("main", map)
   player.collidable_objects = map.get_collidable_objects()
   player.tagged_objects = map.get_tagged_objects()
+  player.action_module = action
 end
 
 function love.update(dt)
