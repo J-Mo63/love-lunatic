@@ -3,6 +3,7 @@ local system = require("scripts.system")
 local player = require("scripts.player")
 local map = require("scripts.map")
 local map_loader = require("scripts.map_loader")
+local action = require("scripts.action")
 
 function love.load()
   -- Set the window title
