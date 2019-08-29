@@ -93,8 +93,8 @@ function M.get_tagged_objects()
     local x_loc = 0
     for j = 1, M.map_config.TILE_DENSITY do
       -- Check if the tagged tile exists in the map
-      local tagged_tile = M.game_map[i][j][M.map_config.TAG_KEY] or M.tiles.transparent
-      if tagged_tile ~= M.tiles.transparent and tagged_tile ~= "" then
+      local tile_tag = M.game_map[i][j][M.map_config.TAG_KEY]
+      if tile_tag and tile_tag ~= "" then
         -- Add it to the tagged table
         table.insert(tagged_objects, 
           {x_loc + M.map_config.letterboxing, y_loc,
