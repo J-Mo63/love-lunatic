@@ -98,7 +98,8 @@ function M.get_tagged_objects()
         -- Add it to the tagged table
         table.insert(tagged_objects, 
           {x_loc + M.map_config.letterboxing, y_loc,
-           M.map_config.scaled_tile_height, M.map_config.scaled_tile_height})
+           M.map_config.scaled_tile_height, M.map_config.scaled_tile_height, 
+           tile_tag})
       end
       -- Increment the x location of the tile
       x_loc = x_loc + M.map_config.scaled_tile_height
