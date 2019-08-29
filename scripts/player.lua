@@ -143,6 +143,10 @@ function M.update(dt)
                    M.transform.w + INTERACTION_OFFSET*2, 
                    M.transform.h + INTERACTION_OFFSET*2}, 
                    M.tagged_objects)
+  -- Allow player to activate actionable items
+  if love.keyboard.isDown("f") and actionable then
+    to_console = actionable
+  end
 
   -- Calculate the current frame tick
   if frame_tick >= ANIMAION_SPEED then
