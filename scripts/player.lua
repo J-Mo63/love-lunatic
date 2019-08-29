@@ -142,7 +142,8 @@ function M.update(dt)
                    M.transform.y - INTERACTION_OFFSET, 
                    M.transform.w + INTERACTION_OFFSET*2, 
                    M.transform.h + INTERACTION_OFFSET*2}, 
-                   M.tagged_objects)
+                   M.tagged_objects, true)
+
   -- Allow player to activate actionable items
   if love.keyboard.isDown("f") and actionable then
     to_console = actionable
@@ -183,14 +184,22 @@ function M.render()
 end
 
 -- A method to check if the player collides with any of a set of items
-function M.items_collided(player, items)
+function M.items_collided(player, items, return_val)
   -- Check if the player collided with any items
   for i, item in ipairs(items) do
+    -- Set the required return values
+    local positive_val = true
+    local negative_val = false
+    if return_val then
+      positive_val = item[5]
+      negative_val = nil
+    end
+    -- Check item collision
     if M.collided(player, item) then
-      return true
+      return positive_val
     end
   end
-  return false
+  return negative_val
 end
 
 -- A method to check whether two objects collide
