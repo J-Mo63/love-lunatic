@@ -148,7 +148,7 @@ function M.update(dt)
 
   -- Allow player to activate actionable items
   if love.keyboard.isDown("f") and actionable then
-    to_console = actionable
+    M.action_module.dispatch_action(actionable)
   end
 
   -- Calculate the current frame tick
