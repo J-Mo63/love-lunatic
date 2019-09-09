@@ -32,7 +32,7 @@ local is_idle = true
 local current_animation = nil
 local current_frame = 0
 local frame_tick = 0
-local actionable = false
+local action = nil
 
 -- Initialises the player module for use
 function M.init()
@@ -139,16 +139,16 @@ function M.update(dt)
   end
 
   -- Check if the player collided with any tagged objects
-  actionable = M.items_collided(
+  action = M.items_collided(
                   {M.transform.x - INTERACTION_OFFSET, 
                    M.transform.y - INTERACTION_OFFSET, 
                    M.transform.w + INTERACTION_OFFSET*2, 
                    M.transform.h + INTERACTION_OFFSET*2}, 
                    M.tagged_objects, true)
 
-  -- Allow player to activate actionable items
-  if love.keyboard.isDown("f") and actionable then
-    M.action_module.dispatch_action(actionable)
+  -- Allow player to activate action items
+  if love.keyboard.isDown("f") and action then
+    M.action_module.dispatch_action(action)
   end
 
   -- Calculate the current frame tick
@@ -170,7 +170,7 @@ function M.render()
 
   -- Draw the current player sprite animation to the screen
   love.graphics.draw(current_animation[frame_num], M.transform.x, M.transform.y, 0, PLAYER_SCALE)
-  if actionable then
+  if action then
     local text = "Press f"
     local font = love.graphics.getFont()
     local width = M.transform.x - (font:getWidth(text) / 2) + M.transform.w / 2
