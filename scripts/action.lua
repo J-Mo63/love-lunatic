@@ -13,6 +13,10 @@ end
 function M.dispatch_action(action)
   action_instructions = M.actions[action]
 
+  if action == "map_2" then
+    setup_scene("map_2", {x = 0, y = 0})
+  end
+  
   if action_instructions then
     if action_instructions[1] == "print" then
       if action_instructions[2] == "dialog" then
