@@ -20,7 +20,7 @@ function love.update(dt)
   player.update(dt)
 
   if love.keyboard.isDown("m") then
-      setup_scene("map_2")
+      setup_scene("map_2", {x = 0, y = 0})
   end
 end
 
@@ -31,9 +31,13 @@ function love.draw()
   system.render()
 end
 
-function setup_scene(map_name)
+function setup_scene(map_name, player_location)
   map_loader.init(map_name, map)
   player.collidable_objects = map.get_collidable_objects()
   player.tagged_objects = map.get_tagged_objects()
   player.action_module = action
+  if player_location then
+    player.transform.x = player_location.x
+    player.transform.y = player_location.y
+  end
 end
