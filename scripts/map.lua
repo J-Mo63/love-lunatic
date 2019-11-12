@@ -175,5 +175,13 @@ function M.render()
   -- Draw the map canvas with the letterbox offset
   love.graphics.draw(map_canvas, M.map_config.letterboxing)
 end
+
+function M.to_tile_location(pixel_locations)
+  for key, location in pairs(pixel_locations) do
+    pixel_locations[key] = M.map_config.scaled_tile_height * location - (M.map_config.scaled_tile_height / 2)
+  end
+  pixel_locations.x = pixel_locations.x + M.map_config.letterboxing
+  return pixel_locations
+end
  
 return M
