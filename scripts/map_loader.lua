@@ -13,7 +13,8 @@ function M.init(filename, load_module)
     M.tiles = M.load_module.tiles
 
     -- Start loading the map file
-    require("maps." .. filename)
+    local map = require("maps." .. filename)
+    map.init()
 end
 
 -- Loads the map in and calls a function to return it to the parent module

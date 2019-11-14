@@ -176,8 +176,9 @@ function M.render()
   love.graphics.draw(map_canvas, M.map_config.letterboxing)
 end
 
-function M.to_tile_location(pixel_locations)
-  for key, location in pairs(pixel_locations) do
+function M.to_tile_location(tile_locations)
+  local pixel_locations = {}
+  for key, location in pairs(tile_locations) do
     pixel_locations[key] = M.map_config.scaled_tile_height * location - (M.map_config.scaled_tile_height / 2)
   end
   pixel_locations.x = pixel_locations.x + M.map_config.letterboxing

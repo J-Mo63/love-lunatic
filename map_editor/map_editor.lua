@@ -40,7 +40,7 @@ end
 -- Saves the map to a file in app data
 function save_map()
   -- Construct map data in the recall format
-  local save_data = "load_map {"
+  local save_data = "local M = {} function M.init() load_map {"
   for i = 1, M.map_config.TILE_DENSITY do
     save_data = save_data .. "{"
     for j = 1, M.map_config.TILE_DENSITY do
@@ -69,7 +69,7 @@ function save_map()
     end
     save_data = save_data .. "},"
   end
-  save_data = save_data .. "}"
+  save_data = save_data .. "} end return M"
 
   -- Write the file to appdata
   love.filesystem.write("edit_map.lua", save_data)
