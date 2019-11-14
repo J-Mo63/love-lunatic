@@ -3,8 +3,10 @@ local M = {}
 
 M.actions = {
   secret_bush = {"print", "dialog", 3},
-  map_2_lower = {"change_map", "map_2", {x = 5, y = 5}},
-  map_2_upper = {"change_map", "map_2", {x = 16, y = 3}},
+  map_2_lower_left = {"change_map", "map_2", {x = 16, y = 11}},
+  map_2_upper_left = {"change_map", "map_2", {x = 16, y = 3}},
+  map_main_lower = {"change_map", "main", {x = 1, y = 11}},
+  map_main_upper = {"change_map", "main", {x = 1, y = 3}},
 }
 
 local dialog = {"broke", "still broke", "worked!"}
