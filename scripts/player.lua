@@ -218,5 +218,11 @@ function M.collided(object_a, object_b)
          object_a[2] < object_b[2] + object_b[4] and
          object_b[2] < object_a[2] + object_a[4]
 end
+
+-- A method to set the centred position of the player
+function M.set_position(positions)
+  M.transform.x = positions.x - M.transform.w / 2
+  M.transform.y = positions.y - M.transform.h / 2
+end
  
 return M

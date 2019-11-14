@@ -36,8 +36,6 @@ function setup_scene(map_name, player_location)
   player.action_module = action
   -- Change player location if supplied
   if player_location then
-    player_location = map.to_tile_location(player_location)
-    player.transform.x = player_location.x
-    player.transform.y = player_location.y
+    player.set_position(map.to_tile_location(player_location))
   end
 end
