@@ -33,6 +33,7 @@ local current_animation = nil
 local current_frame = 0
 local frame_tick = 0
 local action = nil
+local action_cooldown = 0
 
 -- Initialises the player module for use
 function M.init()
@@ -147,8 +148,14 @@ function M.update(dt)
                    M.tagged_objects, true)
 
   -- Allow player to activate action items
-  if love.keyboard.isDown("f") and action then
+  if love.keyboard.isDown("f") and action and action_cooldown <= 0 then
     M.action_module.dispatch_action(action)
+    action_cooldown = 50
+  end
+
+  -- Deincrement the action cooldown
+  if action_cooldown > 0 then
+    action_cooldown = action_cooldown - 1
   end
 
   -- Calculate the current frame tick
@@ -170,7 +177,7 @@ function M.render()
 
   -- Draw the current player sprite animation to the screen
   love.graphics.draw(current_animation[frame_num], M.transform.x, M.transform.y, 0, PLAYER_SCALE)
-  if action then
+  if action and action_cooldown <= 0 then
     local text = "Press f"
     local font = love.graphics.getFont()
     local width = M.transform.x - (font:getWidth(text) / 2) + M.transform.w / 2
