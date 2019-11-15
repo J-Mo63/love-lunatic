@@ -8,6 +8,9 @@ local action = require("scripts.action")
 function love.load()
   -- Set the window title
   love.window.setTitle("Unknowable Adventure")
+  -- Set window display settings
+  love.window.setMode(love.graphics.getWidth(), 
+    love.graphics.getHeight(), {fullscreen = false})
   -- Initialise modules for use
   player.init()
   map.init()
