@@ -18,6 +18,11 @@ function M.update(dt)
     if love.keyboard.isDown("d") then
       debug_mode = true
     end
+
+    if love.keyboard.isDown("f") then
+      love.window.setFullscreen(true)
+      reset_map = true
+    end
   end
 
   -- Check if FPS should be displayed
