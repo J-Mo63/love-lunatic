@@ -5,6 +5,10 @@ local map = require("scripts.map")
 local map_loader = require("scripts.map_loader")
 local action = require("scripts.action")
 
+local alpha = 0
+local fade_out = false
+local fade_in = true
+
 function love.load()
   -- Set the window title
   love.window.setTitle("Unknowable Adventure")
@@ -24,13 +28,29 @@ function love.update(dt)
 end
 
 function love.draw()
+  if fade_out then
+    alpha = alpha - 0.1
+    if alpha <= 0 then
+      fade_out = false
+      fade_in = true
+    end
+  elseif fade_in then
+    alpha = alpha + 0.1
+    if alpha >= 1 then
+      fade_in = false
+    end
+  end
+  love.graphics.setColor(255, 255, 255, alpha)
+
   -- Render game components on the screen
   map.render()
   player.render()
   system.render()
 end
 
+-- A method to setup scenes with new maps and player locations
 function setup_scene(map_name, player_location)
+  fade_out = true
   -- Initialise the map in the map module
   map_loader.init(map_name, map)
   -- Update the player module fields with map data
