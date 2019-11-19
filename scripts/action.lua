@@ -24,7 +24,7 @@ function M.dispatch_action(action)
         to_console = dialog[action_instructions[3]]
       end
     elseif action_instructions[1] == "change_map" then
-      setup_scene(action_instructions[2], action_instructions[3])
+      change_scene(action_instructions[2], action_instructions[3])
     end
   else
     to_console = "null action"
