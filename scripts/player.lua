@@ -17,8 +17,6 @@ M.transform = {
 M.collidable_objects = {}
 M.tagged_objects = {}
 
-M.action = require("scripts.action")
-
 -- The player sprites
 local sprites = {
   walking_down = {},
@@ -149,7 +147,7 @@ function M.update(dt)
 
   -- Allow player to activate action items
   if love.keyboard.isDown("f") and available_action and action_cooldown <= 0 then
-    M.action.dispatch_action(available_action)
+    Module.action.dispatch_action(available_action)
     action_cooldown = 50
   end
 

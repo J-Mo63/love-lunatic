@@ -8,17 +8,11 @@ local alpha = 1
 local fade_out = false
 local fade_in = false
 
-local map_loader = nil
-local map = nil
-local player = nil
-
 -- Initialises the map module for use
-function M.init(map_name, player_location, map_loader_module, map_module, player_module)
+function M.init(map_name, player_location)
   current_map_name = map_name
   player_start_location = player_location
-  map_loader = map_loader_module
-  map = map_module
-  player = player_module
+
   fade_in = true
   M.setup_scene()
 end
@@ -29,7 +23,7 @@ function M.update(dt)
     alpha = alpha + 0.05
     if alpha >= 1 then
       fade_out = false
-      setup_scene()
+      M.setup_scene()
       fade_in = true
     end
   elseif fade_in then
@@ -56,12 +50,12 @@ end
 -- A method to setup scenes with new maps and player locations
 function M.setup_scene()
   -- Initialise the map in the map module
-  map_loader.init(current_map_name, map)
+  Module.map_loader.init(current_map_name, Module.map)
   -- Update the player module fields with map data
-  player.collidable_objects = map.get_collidable_objects()
-  player.tagged_objects = map.get_tagged_objects()
+  Module.player.collidable_objects = Module.map.get_collidable_objects()
+  Module.player.tagged_objects = Module.map.get_tagged_objects()
   -- Change player location
-  player.set_position(map.to_tile_location(player_start_location))
+  Module.player.set_position(Module.map.to_tile_location(player_start_location))
 end
  
 return M
