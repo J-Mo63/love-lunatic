@@ -1,4 +1,4 @@
--- The module table
+-- Initialise the module table
 Module = {
   system = require("scripts.system"),
   player = require("scripts.player"),

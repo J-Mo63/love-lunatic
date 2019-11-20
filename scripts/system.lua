@@ -14,14 +14,15 @@ function M.update(dt)
       love.event.quit()
     end
     
-    -- Make the application display FPS on command + f
+    -- Make the application enter debug mode on command + d
     if love.keyboard.isDown("d") then
       debug_mode = true
     end
 
+    -- Make the application go into fullscreen mode on command + f
     if love.keyboard.isDown("f") then
-      love.window.setFullscreen(true)
-      Module.map.setup_fields()
+      love.window.setFullscreen(not love.window.getFullscreen())
+      Module.map.setup_map()
     end
   end
 

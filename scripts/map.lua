@@ -115,14 +115,13 @@ end
 function M.init()
   -- Load the tiles
   load_tiles()
-
-  M.setup_fields()
-  
-  -- Load the game map and draw it to the canvas
-  M.update_map(load_map())
+  -- Load the game map
+  M.game_map = load_map()
+  -- Setup map parameters and draw it to the canvas
+  M.setup_map()
 end
 
-function M.setup_fields()
+function M.setup_map()
   -- Get the height of the imported tileset
   local tileset_height = M.tiles.placeholder:getWidth()
 
@@ -140,6 +139,9 @@ function M.setup_fields()
 
   -- Initialse the map canvas
   map_canvas = love.graphics.newCanvas(screen_height, screen_height)
+
+  -- Load the game map and draw it to the canvas
+  M.update_map(M.game_map)
 end
 
 -- Updates the canvas with a new map
