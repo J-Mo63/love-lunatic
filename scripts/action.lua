@@ -12,9 +12,6 @@ M.actions = {
 
 local dialog = {"broke", "still broke", "worked!"}
 
-function M.init()
-end
-
 function M.dispatch_action(action)
   action_instructions = M.actions[action]
 
