@@ -21,7 +21,7 @@ function M.update(dt)
 
     if love.keyboard.isDown("f") then
       love.window.setFullscreen(true)
-      reset_map = true
+      Module.map.setup_fields()
     end
   end
 

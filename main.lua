@@ -26,11 +26,6 @@ function love.update(dt)
   Module.system.update(dt)
   Module.player.update(dt)
   Module.scene.update(dt)
-
-  -- if reset_map then
-  --   map.setup_fields()
-  --   reset_map = false
-  -- end
 end
 
 function love.draw()

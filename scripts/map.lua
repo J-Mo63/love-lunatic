@@ -116,9 +116,16 @@ function M.init()
   -- Load the tiles
   load_tiles()
 
+  M.setup_fields()
+  
+  -- Load the game map and draw it to the canvas
+  M.update_map(load_map())
+end
+
+function M.setup_fields()
   -- Get the height of the imported tileset
   local tileset_height = M.tiles.placeholder:getWidth()
-  
+
   -- Get the screen dimensions
   local screen_width = love.graphics.getWidth()
   local screen_height = love.graphics.getHeight()
@@ -133,22 +140,10 @@ function M.init()
 
   -- Initialse the map canvas
   map_canvas = love.graphics.newCanvas(screen_height, screen_height)
-
-  -- Load the game map and draw it to the canvas
-  M.update_map(load_map())
-end
-
--- Updates the module map externally and redraws the canvas
-function M.update_map(game_map)
-  -- Update the stored game map
-  M.game_map = game_map
-  -- Create and initialse the map canvas with tiles
-  map_canvas = love.graphics.newCanvas(screen_height, screen_height)
-  update_canvas()
 end
 
 -- Updates the canvas with a new map
-function update_canvas()
+local function update_canvas()
   love.graphics.setCanvas(map_canvas)
   love.graphics.clear()
   local y_loc = 0
@@ -168,6 +163,15 @@ function update_canvas()
     y_loc = y_loc + M.map_config.scaled_tile_height
   end
   love.graphics.setCanvas(nil)
+end
+
+-- Updates the module map externally and redraws the canvas
+function M.update_map(game_map)
+  -- Update the stored game map
+  M.game_map = game_map
+  -- Create and initialse the map canvas with tiles
+  map_canvas = love.graphics.newCanvas(screen_height, screen_height)
+  update_canvas()
 end
 
 -- Renders the game map to the screen
