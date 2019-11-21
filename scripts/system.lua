@@ -21,8 +21,13 @@ function M.update(dt)
 
     -- Make the application go into fullscreen mode on command + f
     if love.keyboard.isDown("f") then
+      -- Toggle fullscreen option
       love.window.setFullscreen(not love.window.getFullscreen())
+      -- Reset map drawing parameters
       Module.map.setup_map()
+      -- Update collision and tagged object locations in the scene
+      Module.player.collidable_objects = Module.map.get_collidable_objects()
+      Module.player.tagged_objects = Module.map.get_tagged_objects()
     end
   end
 
