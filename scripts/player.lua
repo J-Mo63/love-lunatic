@@ -2,7 +2,7 @@
 local M = {}
 
 -- Module constants
-local PLAYER_SPEED = 2
+local PLAYER_SPEED = 0.2
 local PLAYER_SCALE = 0.15
 local ANIMAION_SPEED = 10
 local INTERACTION_OFFSET = 5
@@ -32,7 +32,8 @@ local current_frame = 0
 local frame_tick = 0
 local available_action = nil
 local action_cooldown = 0
-local true_player_scale = nil
+local scaled_player_scale = nil
+local scaled_player_speed = nil
 
 -- Initialises the player module for use
 function M.init()
@@ -83,12 +84,13 @@ function M.init()
 end
 
 function M.setup_player()
-  true_player_scale = PLAYER_SCALE * Module.map.map_config.tile_scale
+  scaled_player_scale = PLAYER_SCALE * Module.map.map_config.tile_scale
+  scaled_player_speed = PLAYER_SPEED * Module.map.map_config.tile_scale
 
   -- Set player starting location and size
   M.transform.x = love.graphics.getWidth()/2
   M.transform.y = love.graphics.getHeight()/2
-  M.transform.w = current_animation[1]:getWidth() * true_player_scale
+  M.transform.w = current_animation[1]:getWidth() * scaled_player_scale
   M.transform.h = M.transform.w
 end
 
@@ -117,8 +119,8 @@ function M.update(dt)
   -- Normalise player's movement
   local magnitude = math.sqrt(temp_x^2 + temp_y^2)
   if magnitude > 1 then
-    temp_x = M.transform.x + (temp_x / magnitude) * PLAYER_SPEED
-    temp_y = M.transform.y + (temp_y / magnitude) * PLAYER_SPEED
+    temp_x = M.transform.x + (temp_x / magnitude) * scaled_player_speed
+    temp_y = M.transform.y + (temp_y / magnitude) * scaled_player_speed
 
     -- Check if the player collided with any collidable objects
     local player_object = {temp_x, temp_y, M.transform.w, M.transform.h}
@@ -181,7 +183,7 @@ function M.render()
   end
 
   -- Draw the current player sprite animation to the screen
-  love.graphics.draw(current_animation[frame_num], M.transform.x, M.transform.y, 0, true_player_scale)
+  love.graphics.draw(current_animation[frame_num], M.transform.x, M.transform.y, 0, scaled_player_scale)
   if available_action and action_cooldown <= 0 then
     local text = "Press f"
     local font = love.graphics.getFont()
