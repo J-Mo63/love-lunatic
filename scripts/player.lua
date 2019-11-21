@@ -91,8 +91,6 @@ function M.setup_player()
   scaled_player_speed = PLAYER_SPEED * Module.map.map_config.tile_scale
 
   -- Set player starting location and size
-  M.transform.x = love.graphics.getWidth()/2
-  M.transform.y = love.graphics.getHeight()/2
   M.transform.w = current_animation[1]:getWidth() * scaled_player_scale
   M.transform.h = M.transform.w
 end

@@ -30,6 +30,9 @@ function M.update(dt)
 
     -- Make the application go into fullscreen mode on command + f
     if love.keyboard.isDown("f") then
+      -- Collect old screen data
+      local old_scale = Module.map.map_config.tile_scale
+      local old_letterboxing = Module.map.map_config.letterboxing
       -- Toggle fullscreen option
       love.window.setFullscreen(not love.window.getFullscreen())
       -- Reset map and player drawing parameters
@@ -38,6 +41,11 @@ function M.update(dt)
       -- Update collision and tagged object locations in the scene
       Module.player.collidable_objects = Module.map.get_collidable_objects()
       Module.player.tagged_objects = Module.map.get_tagged_objects()
+      -- Update player position based on scale changes
+      local scale_change = ((Module.map.map_config.tile_scale - old_scale) / old_scale) + 1
+      Module.player.transform.x = ((Module.player.transform.x - old_letterboxing) * scale_change) 
+      + Module.map.map_config.letterboxing
+      Module.player.transform.y = Module.player.transform.y * scale_change
     end
   end
 
