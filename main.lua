@@ -9,13 +9,8 @@ Module = {
 }
 
 function love.load()
-  -- Set the window title
-  love.window.setTitle("Unknowable Adventure")
-  -- Set window display settings
-  love.window.setMode(love.graphics.getWidth(), 
-    love.graphics.getHeight(), {fullscreen = false})
-
   -- Initialise modules for use
+  Module.system.init()
   Module.map.init()
   Module.player.init()
   Module.scene.init("main", {x = 9, y = 9})

@@ -5,6 +5,15 @@ local M = {}
 to_console = "Console ready"
 debug_mode = false
 
+-- Initialises the game window and system features
+function M.init()
+  -- Set the window title
+  love.window.setTitle("Unknowable Adventure")
+  -- Set window display settings
+  love.window.setMode(love.graphics.getWidth(), 
+    love.graphics.getHeight(), {fullscreen = false})
+end
+
 -- Checks for any system commands
 function M.update(dt)
   -- Define command functions

@@ -121,6 +121,7 @@ function M.init()
   M.setup_map()
 end
 
+-- Updates the map drawing parameters
 function M.setup_map()
   -- Get the height of the imported tileset
   local tileset_height = M.tiles.placeholder:getWidth()

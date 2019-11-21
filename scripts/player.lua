@@ -80,10 +80,13 @@ function M.init()
   -- Set the default animation
   current_animation = sprites.walking_down
 
+  -- Setup player parameters
   M.setup_player()
 end
 
+-- Updates the player module parameters
 function M.setup_player()
+  -- Get scaled player values
   scaled_player_scale = PLAYER_SCALE * Module.map.map_config.tile_scale
   scaled_player_speed = PLAYER_SPEED * Module.map.map_config.tile_scale
 
