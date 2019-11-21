@@ -3,7 +3,7 @@ local M = {}
 
 -- Module constants
 local PLAYER_SPEED = 2
-local PLAYER_SCALE = 1.4
+local PLAYER_SCALE = 0.15
 local ANIMAION_SPEED = 10
 local INTERACTION_OFFSET = 5
 
@@ -32,6 +32,7 @@ local current_frame = 0
 local frame_tick = 0
 local available_action = nil
 local action_cooldown = 0
+local true_player_scale = nil
 
 -- Initialises the player module for use
 function M.init()
@@ -78,10 +79,16 @@ function M.init()
   -- Set the default animation
   current_animation = sprites.walking_down
 
+  M.setup_player()
+end
+
+function M.setup_player()
+  true_player_scale = PLAYER_SCALE * Module.map.map_config.tile_scale
+
   -- Set player starting location and size
   M.transform.x = love.graphics.getWidth()/2
   M.transform.y = love.graphics.getHeight()/2
-  M.transform.w = current_animation[1]:getWidth() * PLAYER_SCALE
+  M.transform.w = current_animation[1]:getWidth() * true_player_scale
   M.transform.h = M.transform.w
 end
 
@@ -174,7 +181,7 @@ function M.render()
   end
 
   -- Draw the current player sprite animation to the screen
-  love.graphics.draw(current_animation[frame_num], M.transform.x, M.transform.y, 0, PLAYER_SCALE)
+  love.graphics.draw(current_animation[frame_num], M.transform.x, M.transform.y, 0, true_player_scale)
   if available_action and action_cooldown <= 0 then
     local text = "Press f"
     local font = love.graphics.getFont()

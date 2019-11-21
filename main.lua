@@ -16,8 +16,8 @@ function love.load()
     love.graphics.getHeight(), {fullscreen = false})
 
   -- Initialise modules for use
-  Module.player.init()
   Module.map.init()
+  Module.player.init()
   Module.scene.init("main", {x = 9, y = 9})
 end
 
