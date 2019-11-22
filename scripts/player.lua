@@ -97,81 +97,83 @@ end
 
 -- Updates the player and input state
 function M.update(dt)
-  -- Get movement profiles for input
-  local temp_x = 0
-  local temp_y = 0
-  if love.keyboard.isDown("right") then
-    temp_x = (dt * 100)
-    current_animation = sprites.walking_right
-  end
-  if love.keyboard.isDown("left") then
-    temp_x = -(dt * 100)
-    current_animation = sprites.walking_left
-  end
-  if love.keyboard.isDown("down") then
-    temp_y = (dt * 100)
-    current_animation = sprites.walking_down
-  end
-  if love.keyboard.isDown("up") then
-    temp_y = -(dt * 100)
-    current_animation = sprites.walking_up
-  end
+  if not Module.system.control_override then
+    -- Get movement profiles for input
+    local temp_x = 0
+    local temp_y = 0
+    if love.keyboard.isDown("right") then
+      temp_x = (dt * 100)
+      current_animation = sprites.walking_right
+    end
+    if love.keyboard.isDown("left") then
+      temp_x = -(dt * 100)
+      current_animation = sprites.walking_left
+    end
+    if love.keyboard.isDown("down") then
+      temp_y = (dt * 100)
+      current_animation = sprites.walking_down
+    end
+    if love.keyboard.isDown("up") then
+      temp_y = -(dt * 100)
+      current_animation = sprites.walking_up
+    end
 
-  -- Normalise player's movement
-  local magnitude = math.sqrt(temp_x^2 + temp_y^2)
-  if magnitude > 1 then
-    temp_x = M.transform.x + (temp_x / magnitude) * scaled_player_speed
-    temp_y = M.transform.y + (temp_y / magnitude) * scaled_player_speed
+    -- Normalise player's movement
+    local magnitude = math.sqrt(temp_x^2 + temp_y^2)
+    if magnitude > 1 then
+      temp_x = M.transform.x + (temp_x / magnitude) * scaled_player_speed
+      temp_y = M.transform.y + (temp_y / magnitude) * scaled_player_speed
 
-    -- Check if the player collided with any collidable objects
-    local player_object = {temp_x, temp_y, M.transform.w, M.transform.h}
-    if M.items_collided(player_object, M.collidable_objects) then
-      -- Check if either x or y was would work on their own
-      player_object = {temp_x, M.transform.y, M.transform.w, M.transform.h}
+      -- Check if the player collided with any collidable objects
+      local player_object = {temp_x, temp_y, M.transform.w, M.transform.h}
       if M.items_collided(player_object, M.collidable_objects) then
-        player_object = {M.transform.x, temp_y, M.transform.w, M.transform.h}
-        if not M.items_collided(player_object, M.collidable_objects) then
-          M.transform.y = temp_y
+        -- Check if either x or y was would work on their own
+        player_object = {temp_x, M.transform.y, M.transform.w, M.transform.h}
+        if M.items_collided(player_object, M.collidable_objects) then
+          player_object = {M.transform.x, temp_y, M.transform.w, M.transform.h}
+          if not M.items_collided(player_object, M.collidable_objects) then
+            M.transform.y = temp_y
+          end
+        else
+          M.transform.x = temp_x
         end
       else
+        -- Set the movements to the transform if it didn't collide
         M.transform.x = temp_x
+        M.transform.y = temp_y
       end
+      is_idle = false
     else
-      -- Set the movements to the transform if it didn't collide
-      M.transform.x = temp_x
-      M.transform.y = temp_y
+      -- Set the player as idle
+      is_idle = true
     end
-    is_idle = false
-  else
-    -- Set the player as idle
-    is_idle = true
-  end
 
-  -- Check if the player collided with any tagged objects
-  available_action = M.items_collided(
-                  {M.transform.x - INTERACTION_OFFSET, 
-                   M.transform.y - INTERACTION_OFFSET, 
-                   M.transform.w + INTERACTION_OFFSET*2, 
-                   M.transform.h + INTERACTION_OFFSET*2}, 
-                   M.tagged_objects, true)
+    -- Check if the player collided with any tagged objects
+    available_action = M.items_collided(
+                    {M.transform.x - INTERACTION_OFFSET, 
+                     M.transform.y - INTERACTION_OFFSET, 
+                     M.transform.w + INTERACTION_OFFSET*2, 
+                     M.transform.h + INTERACTION_OFFSET*2}, 
+                     M.tagged_objects, true)
 
-  -- Allow player to activate action items
-  if love.keyboard.isDown("f") and available_action and action_cooldown <= 0 then
-    Module.action.dispatch_action(available_action)
-    action_cooldown = 50
-  end
+    -- Allow player to activate action items
+    if love.keyboard.isDown("f") and available_action and action_cooldown <= 0 then
+      Module.action.dispatch_action(available_action)
+      action_cooldown = 50
+    end
 
-  -- Deincrement the action cooldown
-  if action_cooldown > 0 then
-    action_cooldown = action_cooldown - 1
-  end
+    -- Deincrement the action cooldown
+    if action_cooldown > 0 then
+      action_cooldown = action_cooldown - 1
+    end
 
-  -- Calculate the current frame tick
-  if frame_tick >= ANIMAION_SPEED then
-    current_frame = current_frame + 1
-    frame_tick = 0
+    -- Calculate the current frame tick
+    if frame_tick >= ANIMAION_SPEED then
+      current_frame = current_frame + 1
+      frame_tick = 0
+    end
+    frame_tick = frame_tick + 1
   end
-  frame_tick = frame_tick + 1
 end
 
 -- Renders the player sprite to the screen

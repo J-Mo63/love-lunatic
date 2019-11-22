@@ -6,6 +6,7 @@ Module = {
   map_loader = require("scripts.map_loader"),
   scene = require("scripts.scene"),
   action = require("scripts.action"),
+  object_display = require("scripts.object_display")
 }
 
 function love.load()
@@ -21,6 +22,7 @@ function love.update(dt)
   Module.system.update(dt)
   Module.player.update(dt)
   Module.scene.update(dt)
+  Module.object_display.update(dt)
 end
 
 function love.draw()
@@ -29,4 +31,5 @@ function love.draw()
   Module.player.render()
   Module.system.render()
   Module.scene.render()
+  Module.object_display.render()
 end

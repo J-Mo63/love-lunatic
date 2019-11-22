@@ -2,8 +2,9 @@
 local M = {}
 
 M.actions = {
-  secret_bush = {"print", "dialog", 3},
-  special_fence = {"change_map", "testing", {x = 1, y = 1}},
+  -- secret_bush = {"print", "dialog", 3},
+  secret_bush = {"display", "assets/res/vert_book.png"},
+  special_fence = {"display", "assets/res/book.png"},
   map_2_lower_left = {"change_map", "map_2", {x = 16, y = 11}},
   map_2_upper_left = {"change_map", "map_2", {x = 16, y = 3}},
   map_main_lower = {"change_map", "main", {x = 1, y = 11}},
@@ -21,6 +22,8 @@ function M.dispatch_action(action)
       end
     elseif action_instructions[1] == "change_map" then
       Module.scene.change_scene(action_instructions[2], action_instructions[3])
+    elseif action_instructions[1] == "display" then
+      Module.object_display.display_object(action_instructions[2])
     end
   else
     Module.system.to_console = "null action"
