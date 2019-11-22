@@ -73,14 +73,13 @@ function M.get_collidable_objects()
 
   -- Add game screen borders to collidable objects
   table.insert(collidable_objects, 
-    {0, 0, M.map_config.letterboxing, love.graphics.getHeight()})
+    {-10 + M.map_config.letterboxing, 0, 10, love.graphics.getHeight()})
   table.insert(collidable_objects, 
-    {M.map_config.letterboxing, -1, love.graphics.getWidth(), 10})
+    {0, -10, love.graphics.getWidth(), 10})
   table.insert(collidable_objects, 
-    {love.graphics.getWidth() - M.map_config.letterboxing, 0, 
-     M.map_config.letterboxing, love.graphics.getHeight()})
+    {love.graphics.getWidth() - M.map_config.letterboxing, 0, 10, love.graphics.getHeight()})
   table.insert(collidable_objects, 
-    {0, love.graphics.getHeight() + 1, love.graphics.getWidth(), 10})
+    {0, love.graphics.getHeight(), love.graphics.getWidth(), 10})
 
   return collidable_objects
 end
