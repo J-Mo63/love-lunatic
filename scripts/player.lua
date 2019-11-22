@@ -193,7 +193,7 @@ function M.render()
   end
 
   -- Draw player hitbox to the screen
-  if debug_mode then
+  if Module.system.debug_mode then
     love.graphics.setColor(255,0,0)
     love.graphics.rectangle("line", M.transform.x, M.transform.y, M.transform.w, M.transform.h)
     love.graphics.setColor(255,255,255)

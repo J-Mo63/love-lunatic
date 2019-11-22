@@ -131,7 +131,7 @@ function M.update()
     if love.keyboard.isDown("s") then
       -- Save the map and inform the user
       save_map()
-      to_console = "map saved"
+      Module.system.to_console = "map saved"
     end
 
     -- Load the current map data from a file on command + l
@@ -139,7 +139,7 @@ function M.update()
       local map_loader = require("scripts.map_loader")
       map_loader.init("edit_map", M)
       M.map_updated = true
-      to_console = "map loaded"
+      Module.system.to_console = "map loaded"
     end
   end
 end

@@ -1,9 +1,10 @@
 -- A module for system related methods and variables
 local M = {}
 
--- Globals
-to_console = "Console ready"
-debug_mode = false
+-- Public module fields
+M.to_console = "Console ready"
+M.debug_mode = false
+M.control_override = false
 
 -- Initialises the game window and system features
 function M.init()
@@ -25,7 +26,7 @@ function M.update(dt)
     
     -- Make the application enter debug mode on command + d
     if love.keyboard.isDown("d") then
-      debug_mode = true
+      M.debug_mode = true
     end
 
     -- Make the application go into fullscreen mode on command + f
@@ -50,14 +51,14 @@ function M.update(dt)
   end
 
   -- Check if FPS should be displayed
-  if debug_mode then
-    to_console = "fps: " .. tostring(love.timer.getFPS())
+  if M.debug_mode then
+    M.to_console = "fps: " .. tostring(love.timer.getFPS())
   end
 end
 
 -- Renders UI to the screen
 function M.render()
-  love.graphics.print(to_console, 5, 2)
+  love.graphics.print(M.to_console, 5, 2)
 end
  
 return M

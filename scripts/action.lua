@@ -13,18 +13,17 @@ M.actions = {
 local dialog = {"broke", "still broke", "worked!"}
 
 function M.dispatch_action(action)
-  action_instructions = M.actions[action]
-
+  local action_instructions = M.actions[action]
   if action_instructions then
     if action_instructions[1] == "print" then
       if action_instructions[2] == "dialog" then
-        to_console = dialog[action_instructions[3]]
+        Module.system.to_console = dialog[action_instructions[3]]
       end
     elseif action_instructions[1] == "change_map" then
       Module.scene.change_scene(action_instructions[2], action_instructions[3])
     end
   else
-    to_console = "null action"
+    Module.system.to_console = "null action"
   end
 end
 
