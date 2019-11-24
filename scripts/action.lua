@@ -23,7 +23,7 @@ function M.dispatch_action(action)
     elseif action_instructions[1] == "change_map" then
       Module.scene.change_scene(action_instructions[2], action_instructions[3])
     elseif action_instructions[1] == "display" then
-      Module.object_display.display_object(action_instructions[2])
+      Module.inspection.inspect_object(action_instructions[2])
     end
   else
     Module.system.to_console = "null action"

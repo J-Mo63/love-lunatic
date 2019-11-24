@@ -1,20 +1,20 @@
--- A module for object display related methods and variables
+-- A module for object inspection related methods and variables
 local M = {}
 
 -- Module constants
 local MAX_INTERACTION_COOLDOWN = 20
 
 -- Module fields
-M.display = false
+M.display_inspector = false
 M.image = nil
 
 -- Module constants
 local interaction_cooldown = MAX_INTERACTION_COOLDOWN
 
-function M.display_object(image)
+function M.inspect_object(image)
   M.image = love.graphics.newImage(image)
   Module.system.control_override = true
-  M.display = true
+  M.display_inspector = true
 end
 
 function M.update(dt)
@@ -22,7 +22,7 @@ function M.update(dt)
     if interaction_cooldown > 0 then
       interaction_cooldown = interaction_cooldown - 1
     elseif love.keyboard.isDown("f") then
-      M.display = false
+      M.display_inspector = false
       Module.system.control_override = false
       interaction_cooldown = MAX_INTERACTION_COOLDOWN
     end
@@ -30,7 +30,7 @@ function M.update(dt)
 end
 
 function M.render()
-  if M.display then
+  if M.display_inspector then
     local largest_image_dimension = (M.image:getWidth() >= M.image:getHeight() 
       and M.image:getWidth() or M.image:getHeight())
     local screen_height = love.graphics.getHeight()
