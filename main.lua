@@ -33,4 +33,5 @@ function love.draw()
   Module.system.render()
   Module.scene.render()
   Module.inspection.render()
+  Module.dialogue.render()
 end
