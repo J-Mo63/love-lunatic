@@ -6,7 +6,8 @@ Module = {
   map_loader = require("scripts.map_loader"),
   scene = require("scripts.scene"),
   action = require("scripts.action"),
-  inspection = require("scripts.inspection")
+  inspection = require("scripts.inspection"),
+  dialogue = require("scripts.dialogue")
 }
 
 function love.load()
