@@ -24,6 +24,7 @@ function love.update(dt)
   Module.player.update(dt)
   Module.scene.update(dt)
   Module.inspection.update(dt)
+  Module.dialogue.update(dt)
 end
 
 function love.draw()
