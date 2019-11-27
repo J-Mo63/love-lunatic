@@ -5,7 +5,7 @@ local M = {}
 local MAX_WIDTH = 20
 
 -- A dialogue table
-local dialogue_table = {"broke", "still broke", "worked! this motherfucking worked dude!"}
+local dialogue_table = {"broke", "still broke", "This is a line of text to be read by the player character."}
 
 -- Module fields
 local dialogue = nil
@@ -14,6 +14,7 @@ local dialogue = nil
 function M.display_dialogue(dialogue_id)
   -- Display the dialogue on screen
   dialogue = dialogue_table[dialogue_id]
+  Module.system.control_override = true
   Module.system.key_bindings.f = M.progress_dialogue
 end
 
@@ -24,6 +25,7 @@ function M.progress_dialogue()
     if dialogue == "" then
       dialogue = nil
       Module.system.reset_key_bindings()
+      Module.system.control_override = false
     end
   end
 end
