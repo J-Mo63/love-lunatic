@@ -6,6 +6,10 @@ M.to_console = "Console ready"
 M.debug_mode = false
 M.control_override = false
 
+M.key_bindings = {
+  f = nil
+}
+
 -- Initialises the game window and system features
 function M.init()
   -- Set the window title
@@ -13,6 +17,18 @@ function M.init()
   -- Set window display settings
   love.window.setMode(love.graphics.getWidth(), 
     love.graphics.getHeight(), {fullscreen = false})
+
+  M.reset_key_bindings()
+end
+
+function love.keypressed(key, scancode, isrepeat)
+  if key == "f" then
+    M.key_bindings.f()
+  end
+end
+
+function M.reset_key_bindings()
+  M.key_bindings.f = Module.player.use
 end
 
 -- Checks for any system commands

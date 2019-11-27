@@ -156,12 +156,6 @@ function M.update(dt)
                      M.transform.h + INTERACTION_OFFSET*2}, 
                      M.tagged_objects, true)
 
-    -- Allow player to activate action items
-    if love.keyboard.isDown("f") and available_action and action_cooldown <= 0 then
-      Module.action.dispatch_action(available_action)
-      action_cooldown = 50
-    end
-
     -- Deincrement the action cooldown
     if action_cooldown > 0 then
       action_cooldown = action_cooldown - 1
@@ -173,6 +167,14 @@ function M.update(dt)
       frame_tick = 0
     end
     frame_tick = frame_tick + 1
+  end
+end
+
+function M.use()
+  -- Allow player to activate action items
+  if available_action and action_cooldown <= 0 then
+    Module.action.dispatch_action(available_action)
+    action_cooldown = 50
   end
 end
 

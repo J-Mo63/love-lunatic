@@ -15,8 +15,7 @@ local actions = {
 -- A method to dispatch the appropritate action given a tag string
 function M.dispatch_action(tag)
   -- Get the action instructions for a given tag
-  local action_instructions = 
-  actions[tag]
+  local action_instructions = actions[tag]
   if action_instructions then
     if action_instructions[1] == "print" then
       -- Deliver output actions
