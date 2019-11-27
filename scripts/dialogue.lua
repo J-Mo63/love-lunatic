@@ -19,10 +19,11 @@ function M.render()
   local font_width = font:getWidth(dialogue_chunk)
   local y_position = Module.player.transform.y - Module.player.transform.h
   local x_position = Module.player.transform.x - (font_width / 2) + (Module.player.transform.w / 2)
-  love.graphics.setColor(0, 0, 0)
+  love.graphics.setColor(1, 1, 1)
   love.graphics.rectangle("fill", x_position, y_position, font_width, font:getHeight(dialogue_chunk))
-  love.graphics.reset()
+  love.graphics.setColor(0, 0, 0)
   love.graphics.print(dialogue_chunk, x_position, y_position)
+  love.graphics.reset()
 end
 
 return M
