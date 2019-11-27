@@ -1,32 +1,21 @@
 -- A module for object inspection related methods and variables
 local M = {}
 
--- Module constants
-local MAX_INTERACTION_COOLDOWN = 20
-
 -- Module fields
 M.display_inspector = false
 M.image = nil
-
--- Module constants
-local interaction_cooldown = MAX_INTERACTION_COOLDOWN
 
 function M.inspect_object(image)
   M.image = love.graphics.newImage(image)
   Module.system.control_override = true
   M.display_inspector = true
+  Module.system.key_bindings.f = M.close_inspector
 end
 
-function M.update(dt)
-  if Module.system.control_override then
-    if interaction_cooldown > 0 then
-      interaction_cooldown = interaction_cooldown - 1
-    elseif love.keyboard.isDown("f") then
-      M.display_inspector = false
-      Module.system.control_override = false
-      interaction_cooldown = MAX_INTERACTION_COOLDOWN
-    end
-  end
+function M.close_inspector()
+  M.display_inspector = false
+  Module.system.control_override = false
+  Module.system.reset_key_bindings()
 end
 
 function M.render()

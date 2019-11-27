@@ -1,11 +1,14 @@
 -- A module for dialogue related methods and variables
 local M = {}
 
+-- Module constants
+local MAX_WIDTH = 20
+
 -- A dialogue table
 local dialogue_table = {"broke", "still broke", "worked! this motherfucking worked dude!"}
 
+-- Module fields
 local dialogue = nil
-local max_width = 20
 
 -- A method to display dialogue given a dialogue id value
 function M.display_dialogue(dialogue_id)
@@ -16,7 +19,7 @@ end
 
 function M.progress_dialogue()
   if dialogue then
-    dialogue = string.sub(dialogue, max_width + 1, -1)
+    dialogue = string.sub(dialogue, MAX_WIDTH + 1, -1)
 
     if dialogue == "" then
       dialogue = nil
@@ -28,7 +31,7 @@ end
 function M.render()
   if dialogue then
     local font = love.graphics.getFont()
-    local dialogue_chunk = string.sub(dialogue, 1, max_width)
+    local dialogue_chunk = string.sub(dialogue, 1, MAX_WIDTH)
     local font_width = font:getWidth(dialogue_chunk)
     local y_position = Module.player.transform.y - Module.player.transform.h
     local x_position = Module.player.transform.x - (font_width / 2) + (Module.player.transform.w / 2)
