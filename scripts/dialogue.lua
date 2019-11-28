@@ -42,7 +42,7 @@ function M.render()
     local y_position = Module.player.transform.y - Module.player.transform.h
     local x_position = Module.player.transform.x - (font_width / 2) + (Module.player.transform.w / 2)
     love.graphics.setColor(1, 1, 1)
-    love.graphics.rectangle("fill", x_position, y_position, font_width, font:getHeight(dialogue_line))
+    love.graphics.rectangle("fill", x_position - 3, y_position - 3, font_width + 6, font:getHeight(dialogue_line) + 6, 3)
     love.graphics.setColor(0, 0, 0)
     love.graphics.print(dialogue_line, x_position, y_position)
     love.graphics.reset()
