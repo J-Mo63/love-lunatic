@@ -17,6 +17,7 @@ local dialogue = nil
 local current_line = 0
 local dialogue_line = nil
 local current_char = 0
+local control_override = false
 
 -- A method to display dialogue given a dialogue id value
 function M.display_dialogue(dialogue_id)
@@ -28,6 +29,7 @@ function M.display_dialogue(dialogue_id)
 end
 
 function M.progress_dialogue()
+  if not control_override then
     current_line = current_line + 1
     dialogue_line = dialogue[current_line]
     current_char = 0
@@ -36,11 +38,15 @@ function M.progress_dialogue()
       Module.player.control_override = false
       current_line = 0
     end
+    control_override = true
+  end
 end
 
 function M.update(dt)
   if dialogue_line and current_char < string.len(dialogue_line) then
     current_char = current_char + TEXT_SPEED
+  elseif control_override then
+    control_override = false
   end
 end
 
