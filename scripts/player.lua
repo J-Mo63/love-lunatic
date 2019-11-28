@@ -17,6 +17,9 @@ M.transform = {
 M.collidable_objects = {}
 M.tagged_objects = {}
 
+-- The control overrride module field
+M.control_override = false
+
 -- The player sprites
 local sprites = {
   walking_down = {},
@@ -97,7 +100,7 @@ end
 
 -- Updates the player and input state
 function M.update(dt)
-  if not Module.system.control_override then
+  if not M.control_override then
     -- Get movement profiles for input
     local temp_x = 0
     local temp_y = 0

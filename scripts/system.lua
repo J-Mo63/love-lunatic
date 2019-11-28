@@ -4,7 +4,6 @@ local M = {}
 -- Public module fields
 M.to_console = "Console ready"
 M.debug_mode = false
-M.control_override = false
 
 M.key_bindings = {
   f = nil

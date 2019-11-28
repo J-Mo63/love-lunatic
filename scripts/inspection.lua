@@ -7,14 +7,14 @@ M.image = nil
 
 function M.inspect_object(image)
   M.image = love.graphics.newImage(image)
-  Module.system.control_override = true
+  Module.player.control_override = true
   M.display_inspector = true
   Module.system.key_bindings.f = M.close_inspector
 end
 
 function M.close_inspector()
   M.display_inspector = false
-  Module.system.control_override = false
+  Module.player.control_override = false
   Module.system.reset_key_bindings()
 end
 

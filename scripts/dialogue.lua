@@ -20,7 +20,7 @@ local dialogue_line = nil
 function M.display_dialogue(dialogue_id)
   -- Display the dialogue on screen
   dialogue = dialogue_table[dialogue_id]
-  Module.system.control_override = true
+  Module.player.control_override = true
   Module.system.key_bindings.f = M.progress_dialogue
   M.progress_dialogue()
 end
@@ -30,7 +30,7 @@ function M.progress_dialogue()
   dialogue_line = dialogue[current_line]
   if dialogue_line == nil then
     Module.system.reset_key_bindings()
-    Module.system.control_override = false
+    Module.player.control_override = false
     current_line = 0
   end
 end
