@@ -3,7 +3,7 @@ local M = {}
 
 -- A table of actions available in the game
 local actions = {
-  secret_bush = {"print", "dialogue", 3},
+  secret_bush = {"print", "dialogue", "bush"},
   why_all_the_fence = {"inspect", "assets/res/vert_book.png"},
   special_fence = {"inspect", "assets/res/book.png"},
   map_2_lower_left = {"change_map", "map_2", {x = 16, y = 11}},
