@@ -182,10 +182,19 @@ function M.render()
   love.graphics.draw(map_canvas, M.map_config.letterboxing)
 end
 
-function M.to_tile_location(tile_locations)
+function M.transform_to_tile_location(transform)
+  local horzontal_positions = M.to_tile_location({x = transform.x, y = transform.y}, false)
+  return {x = horzontal_positions.x, y = horzontal_positions.y, w = M.map_config.scaled_tile_height, h =  M.map_config.scaled_tile_height}
+end
+
+function M.to_tile_location(tile_locations, get_centred)
   local pixel_locations = {}
+  local tile_size = M.map_config.scaled_tile_height
+  if get_centred then
+    tile_size = tile_size / 2
+  end
   for key, location in pairs(tile_locations) do
-    pixel_locations[key] = M.map_config.scaled_tile_height * location - (M.map_config.scaled_tile_height / 2)
+    pixel_locations[key] = M.map_config.scaled_tile_height * location - tile_size
   end
   pixel_locations.x = pixel_locations.x + M.map_config.letterboxing
   return pixel_locations

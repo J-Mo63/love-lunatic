@@ -3,7 +3,7 @@ local M = {}
 
 -- A table of actions available in the game
 local actions = {
-  secret_bush = {"print", "dialogue", "bush"},
+  secret_bush = {"dialogue", "bush", {bush = {x = 12, y = 5}}},
   why_all_the_fence = {"inspect", "assets/res/vert_book.png"},
   special_fence = {"inspect", "assets/res/book.png"},
   map_2_lower_left = {"change_map", "map_2", {x = 16, y = 11}},
@@ -17,11 +17,9 @@ function M.dispatch_action(tag)
   -- Get the action instructions for a given tag
   local action_instructions = actions[tag]
   if action_instructions then
-    if action_instructions[1] == "print" then
-      -- Deliver output actions
-      if action_instructions[2] == "dialogue" then
-        Module.dialogue.display_dialogue(action_instructions[3])
-      end
+    if action_instructions[1] == "dialogue" then
+      -- Deliver dialogue actions
+      Module.dialogue.display_dialogue(action_instructions[2], action_instructions[3])
     elseif action_instructions[1] == "change_map" then
       -- Deliver map change actions
       Module.scene.change_scene(action_instructions[2], action_instructions[3])

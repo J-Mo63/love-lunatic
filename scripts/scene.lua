@@ -55,7 +55,7 @@ function M.setup_scene()
   Module.player.collidable_objects = Module.map.get_collidable_objects()
   Module.player.tagged_objects = Module.map.get_tagged_objects()
   -- Change player location
-  Module.player.set_position(Module.map.to_tile_location(player_start_location))
+  Module.player.set_position(Module.map.to_tile_location(player_start_location, true))
 end
  
 return M
