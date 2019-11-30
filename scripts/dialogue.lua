@@ -6,11 +6,7 @@ local MAX_WIDTH = 20
 local TEXT_SPEED = 0.3
 
 -- A dialogue table
-local dialogue_table = {
-  not_bush = {"player", "This is", "player", "not a line of text", "player", "to be read", "player", "by the player character."}, 
-  bush = {"player", "Hello there!", "bush", "Hi-ho traveller!", "bush", "I am but a humble bush", "player", "A season's greetings to you then", "bush", "Do you not know", "bush", "the dangers of speaking to bushes???"}, 
-  fence = {"player", "This is", "player", "a line of text", "player", "to be read", "player", "by the player character."}
-}
+local dialogue_table = nil
 
 -- Module fields
 local dialogue = nil
@@ -21,6 +17,10 @@ local control_override = false
 local actor_transforms = nil
 local current_transform = nil
 local current_actor = nil
+
+function M.init()
+  dialogue_table = require("dialogue_table")
+end
 
 -- A method to display dialogue given a dialogue id value
 function M.display_dialogue(dialogue_id, transforms)

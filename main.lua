@@ -16,6 +16,7 @@ function love.load()
   Module.map.init()
   Module.player.init()
   Module.scene.init("main", {x = 9, y = 9})
+  Module.dialogue.init()
 end
 
 function love.update(dt)
