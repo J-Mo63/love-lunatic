@@ -7,6 +7,9 @@ local M = {
   }, 
   
   bush = {
+    actors = {
+      bush = {x = 12, y = 5}
+    },
     "player", "Hello there!", 
     "bush", "Hi-ho traveller!", 
     "bush", "I am but a humble bush", 
@@ -22,5 +25,4 @@ local M = {
     "player", "by the player character."
   },
 }
-
 return M

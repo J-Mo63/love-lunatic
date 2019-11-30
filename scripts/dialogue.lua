@@ -23,11 +23,11 @@ function M.init()
 end
 
 -- A method to display dialogue given a dialogue id value
-function M.display_dialogue(dialogue_id, transforms)
+function M.display_dialogue(dialogue_id)
   -- Display the dialogue on screen
   dialogue = dialogue_table[dialogue_id]
   Module.player.control_override = true
-  actor_transforms = transforms
+  actor_transforms = dialogue.actors
   Module.system.key_bindings.f = M.progress_dialogue
   M.progress_dialogue()
 end
