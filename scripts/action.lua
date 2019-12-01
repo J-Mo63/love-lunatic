@@ -2,15 +2,11 @@
 local M = {}
 
 -- A table of actions available in the game
-local actions = {
-  secret_bush = {"dialogue", "bush"},
-  why_all_the_fence = {"inspect", "assets/res/vert_book.png"},
-  special_fence = {"inspect", "assets/res/book.png"},
-  map_2_lower_left = {"change_map", "map_2", {x = 16, y = 11}},
-  map_2_upper_left = {"change_map", "map_2", {x = 16, y = 3}},
-  map_main_lower = {"change_map", "main", {x = 1, y = 11}},
-  map_main_upper = {"change_map", "main", {x = 1, y = 3}},
-}
+local actions = nil
+
+function M.init()
+  actions = require("action_table")
+end
 
 -- A method to dispatch the appropritate action given a tag string
 function M.dispatch_action(tag)
