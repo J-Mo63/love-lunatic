@@ -62,6 +62,8 @@ function M.update(dt)
       Module.player.transform.x = ((Module.player.transform.x - old_letterboxing) * scale_change) 
       + Module.map.map_config.letterboxing
       Module.player.transform.y = Module.player.transform.y * scale_change
+      -- Set the dialogue module font size for scaling
+      Module.dialogue.set_font()
     end
   end
 

@@ -17,9 +17,11 @@ local control_override = false
 local actor_transforms = nil
 local current_transform = nil
 local current_actor = nil
+local font = nil
 
 function M.init()
   dialogue_table = require("dialogue_table")
+  M.set_font(Module.map.map_config.tile_scale)
 end
 
 -- A method to display dialogue given a dialogue id value
@@ -60,19 +62,30 @@ function M.update(dt)
   end
 end
 
+function M.set_font(scale)
+  font = love.graphics.newFont("arial.ttf", 1.5 * scale)
+end
+
 function M.render()
   if dialogue_line then
+
     displayed_dialogue_line = string.sub(dialogue_line, 1, current_char)
-    local font = love.graphics.getFont()
+
+    love.graphics.setFont(font)
+
     local font_width = font:getWidth(displayed_dialogue_line)
+    local font_height = font:getHeight(displayed_dialogue_line)
+
     local y_position = current_transform.y - (current_transform.h / 2)
     if current_actor == "player" then
       y_position = y_position - (current_transform.h / 2)
     end
     local x_position = current_transform.x - (font_width / 2) + (current_transform.w / 2)
+
     love.graphics.setColor(1, 1, 1)
-    love.graphics.rectangle("fill", x_position - 3, y_position - 3, font_width + 6, font:getHeight(displayed_dialogue_line) + 6, 3)
+    love.graphics.rectangle("fill", x_position - 3, y_position - 3, font_width + 6, font_height + 6, 3)
     love.graphics.setColor(0, 0, 0)
+
     love.graphics.print(displayed_dialogue_line, x_position, y_position)
     love.graphics.reset()
   end
