@@ -21,8 +21,10 @@ function M.init()
 end
 
 function love.keypressed(key, scancode, isrepeat)
-  if key == "f" then
-    M.key_bindings.f()
+  if not love.keyboard.isDown("lgui") then
+    if key == "f" then
+      M.key_bindings.f()
+    end
   end
 end
 
@@ -63,7 +65,7 @@ function M.update(dt)
       + Module.map.map_config.letterboxing
       Module.player.transform.y = Module.player.transform.y * scale_change
       -- Set the dialogue module font size for scaling
-      Module.dialogue.set_font()
+      Module.dialogue.set_font(Module.map.map_config.tile_scale)
     end
   end
 
